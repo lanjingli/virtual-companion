@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ECE489A Companion App</string>
+    <string name="title_home">Home</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_tracker">Tracker</string>
+    <string name="title_companion">Companion</string>
+    <string name="title_settings">Settings</string>
+</resources>

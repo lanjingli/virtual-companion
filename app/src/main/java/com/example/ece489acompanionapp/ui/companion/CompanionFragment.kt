@@ -1,0 +1,42 @@
+package com.example.ece489acompanionapp.ui.companion
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.ece489acompanionapp.databinding.FragmentCompanionBinding
+
+class CompanionFragment : Fragment(0) {
+
+    private var _binding: FragmentCompanionBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val dashboardViewModel =
+            ViewModelProvider(this).get(CompanionViewModel::class.java)
+
+        _binding = FragmentCompanionBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        val textView: TextView = binding.textCompanion
+        dashboardViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
+        return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

@@ -21,7 +21,26 @@
         android:id="@+id/navigation_tracker"
         android:name="com.example.ece489acompanionapp.ui.tracker.TrackerFragment"
         android:label="@string/title_tracker"
-        tools:layout="@layout/fragment_tracker" />
+        tools:layout="@layout/fragment_tracker" >
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_water"
+            app:destination="@id/tracker_water" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_meditation"
+            app:destination="@id/tracker_meditation" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_substance_abuse"
+            app:destination="@id/tracker_substance_abuse" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_exercise"
+            app:destination="@id/tracker_exercise" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_food"
+            app:destination="@id/tracker_food" />
+        <action
+            android:id="@+id/action_navigation_tracker_to_tracker_sleep"
+            app:destination="@id/tracker_sleep" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_companion"
@@ -34,4 +53,40 @@
         android:name="com.example.ece489acompanionapp.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/tracker_water"
+        android:name="com.example.ece489acompanionapp.ui.tracker.WaterTrackerFragment"
+        android:label="@string/tracker_water"
+        tools:layout="@layout/fragment_tracker_water" />
+
+    <fragment
+        android:id="@+id/tracker_sleep"
+        android:name="com.example.ece489acompanionapp.ui.tracker.SleepTrackerFragment"
+        android:label="@string/tracker_sleep"
+        tools:layout="@layout/fragment_tracker_sleep" />
+
+    <fragment
+        android:id="@+id/tracker_meditation"
+        android:name="com.example.ece489acompanionapp.ui.tracker.MeditationTrackerFragment"
+        android:label="@string/tracker_meditation"
+        tools:layout="@layout/fragment_tracker_meditation" />
+
+    <fragment
+        android:id="@+id/tracker_exercise"
+        android:name="com.example.ece489acompanionapp.ui.tracker.ExerciseTrackerFragment"
+        android:label="@string/tracker_exercise"
+        tools:layout="@layout/fragment_tracker_exercise" />
+
+    <fragment
+        android:id="@+id/tracker_food"
+        android:name="com.example.ece489acompanionapp.ui.tracker.FoodTrackerFragment"
+        android:label="@string/tracker_food"
+        tools:layout="@layout/fragment_tracker_food" />
+
+    <fragment
+        android:id="@+id/tracker_substance_abuse"
+        android:name="com.example.ece489acompanionapp.ui.tracker.SubstanceAbuseTrackerFragment"
+        android:label="@string/tracker_substance_abuse"
+        tools:layout="@layout/fragment_tracker_substance_abuse" />
 </navigation>

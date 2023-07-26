@@ -1,4 +1,4 @@
-package com.example.ece489acompanionapp.ui.calendar
+package com.example.ece489acompanionapp.ui.tracker
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

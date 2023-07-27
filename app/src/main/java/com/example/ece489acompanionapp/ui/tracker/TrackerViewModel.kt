@@ -19,7 +19,15 @@ class TrackerViewModel : ViewModel() {
         }
     }
 
+    private val _sleep: MutableLiveData<MutableList<Boolean>> by lazy {
+        MutableLiveData<MutableList<Boolean>>().apply {
+            value = MutableList(12) { true }
+        }
+    }
+
     private val _curWaterIntake = MutableLiveData<Int>(0)
+
+    private val _curHoursSlept = MutableLiveData<Int>(0)
 
     val text: LiveData<String> = _text
 
@@ -40,6 +48,19 @@ class TrackerViewModel : ViewModel() {
             }
         }
         _curWaterIntake.value = count
+    }
+
+    fun getSleepState(ind:Int): Boolean? {
+        return _sleep.value?.get(ind)
+    }
+    fun saveSleepIntake() {
+        var count = 0
+        _sleep.value?.forEach { intake->
+            if (intake == true) {
+                count++
+            }
+        }
+        _curHoursSlept.value = count
     }
 
 }

@@ -72,12 +72,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_bed_empty_48dp"
                 android:background="@null"/>
-            <ImageButton
-                android:id="@+id/bed_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_bed_empty_48dp"
-                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,6 +84,12 @@
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sleep_tracker_row1">
+            <ImageButton
+                android:id="@+id/bed_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bed_empty_48dp"
+                android:background="@null"/>
             <ImageButton
                 android:id="@+id/bed_7"
                 android:layout_width="wrap_content"
@@ -110,18 +110,6 @@
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/bed_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_bed_empty_48dp"
-                android:background="@null"/>
-            <ImageButton
-                android:id="@+id/bed_11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_bed_empty_48dp"
-                android:background="@null"/>
-            <ImageButton
-                android:id="@+id/bed_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_bed_empty_48dp"

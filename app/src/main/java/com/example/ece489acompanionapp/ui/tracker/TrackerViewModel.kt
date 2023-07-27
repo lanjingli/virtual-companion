@@ -21,13 +21,13 @@ class TrackerViewModel : ViewModel() {
 
     private val _sleep: MutableLiveData<MutableList<Boolean>> by lazy {
         MutableLiveData<MutableList<Boolean>>().apply {
-            value = MutableList(12) { true }
+            value = MutableList(10) { true }
         }
     }
 
     private val _exercise: MutableLiveData<MutableList<Boolean>> by lazy {
         MutableLiveData<MutableList<Boolean>>().apply {
-            value = MutableList(12) { true }
+            value = MutableList(10) { true }
         }
     }
 

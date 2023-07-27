@@ -161,34 +161,6 @@ class SleepTrackerFragment : Fragment() {
                 }
                 viewModel?.setWaterIsFull(9, tmp)
             }
-
-            bed11.setOnClickListener {
-                val isFull = viewModel?.getSleepState(10)
-                var tmp = if (isFull == true) {
-                    bed11.setImageResource(R.drawable.ic_bed_full_48dp)
-                    false
-                } else {
-                    bed11.setImageResource(R.drawable.ic_bed_empty_48dp)
-                    true
-                }
-                viewModel?.setWaterIsFull(10, tmp)
-            }
-
-            bed12.setOnClickListener {
-                val isFull = viewModel?.getSleepState(11)
-                var tmp = if (isFull == true) {
-                    bed12.setImageResource(R.drawable.ic_bed_full_48dp)
-                    false
-                } else {
-                    bed12.setImageResource(R.drawable.ic_bed_empty_48dp)
-                    true
-                }
-                viewModel?.setWaterIsFull(11, tmp)
-            }
-
-            binding?.apply {
-                sleepTrackerSaveButton.setOnClickListener { goBackToTrackerScreen() }
-            }
         }
     }
 

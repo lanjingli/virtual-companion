@@ -80,7 +80,11 @@
         android:id="@+id/tracker_exercise"
         android:name="com.example.ece489acompanionapp.ui.tracker.ExerciseTrackerFragment"
         android:label="@string/tracker_exercise"
-        tools:layout="@layout/fragment_tracker_exercise" />
+        tools:layout="@layout/fragment_tracker_exercise" >
+        <action
+            android:id="@+id/action_tracker_exercise_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_food"

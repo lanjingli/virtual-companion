@@ -4,19 +4,284 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="36dp"
+    android:layout_marginRight="36dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     tools:context=".ui.companion.CompanionFragment">
 
-    <TextView
-        android:id="@+id/text_companion"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="72dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/battery_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:paddingTop="4dp"
+                    android:rotation="90"
+                    android:src="@drawable/ic_battery_4_bar_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/title_water_tracker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="50%"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/companion_image"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:paddingTop="4dp"
+                android:src="@drawable/ic_cat"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/battery_status" />
+
+            <TextView
+                android:id="@+id/text_companion_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:gravity="center"
+                android:text="Your companion is currently healthy\nKeep up the good work!"
+                android:textColor="#53ed58"
+                app:layout_constraintTop_toBottomOf="@+id/companion_image"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="16dp" />
+
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/reward_progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_companion_progress">
+
+                <TextView
+                    android:id="@+id/text_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 pts"
+                    android:textColor="#53ed58"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/companion_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/text_progress_goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You need 15 more points to unlock Angry Sound"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="12dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/reward_progress_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/reward_progress_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:progressBackgroundTint="#dcdedc"
+                android:progressTint="#53ed58"
+                android:progress="25"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_sounds"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/reward_progress_bar"
+                app:layout_constraintStart_toStartOf="parent"
+                card_view:cardBackgroundColor="#F0F7F7"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="6dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:padding="16dp"
+                    android:divider="?android:listDivider"
+                    android:dividerPadding="2.5dp"
+                    android:showDividers="middle"
+                    android:orientation="vertical">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/title_reminder_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reminder Sound"
+                            android:layout_weight="1"
+                            android:textSize="20dp" />
+                        <ImageView
+                            android:id="@+id/right_arrow_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_right_24"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/title_angry_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Angry Sound"
+                            android:layout_weight="1"
+                            android:textSize="20dp" />
+                        <ImageView
+                            android:id="@+id/right_arrow_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_right_24"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/title_happy_sound"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Happy Sound"
+                            android:layout_weight="1"
+                            android:textSize="20dp" />
+                        <ImageView
+                            android:id="@+id/right_arrow_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_right_24"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_decorator"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/card_sounds"
+                app:layout_constraintStart_toStartOf="parent"
+                card_view:cardBackgroundColor="#F0F7F7"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:padding="16dp"
+                    android:divider="?android:listDivider"
+                    android:dividerPadding="2.5dp"
+                    android:showDividers="middle"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/title_head_decorator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Head Decorators"
+                            android:layout_weight="1"
+                            android:textSize="20dp" />
+                        <ImageView
+                            android:id="@+id/right_arrow_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_right_24"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/title_facial_decorators"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Facial Decorators"
+                            android:layout_weight="1"
+                            android:textSize="20dp" />
+                        <ImageView
+                            android:id="@+id/right_arrow_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="4dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_arrow_right_24"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

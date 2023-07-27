@@ -53,10 +53,10 @@ class TrackerViewModel : ViewModel() {
     fun getSleepState(ind:Int): Boolean? {
         return _sleep.value?.get(ind)
     }
-    fun saveSleepIntake() {
+    fun saveHoursSlept() {
         var count = 0
-        _sleep.value?.forEach { intake->
-            if (intake == true) {
+        _sleep.value?.forEach { hour->
+            if (hour == true) {
                 count++
             }
         }

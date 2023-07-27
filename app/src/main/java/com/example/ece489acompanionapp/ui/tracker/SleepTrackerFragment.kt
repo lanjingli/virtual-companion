@@ -194,7 +194,7 @@ class SleepTrackerFragment : Fragment() {
 
     fun goBackToTrackerScreen() {
         // TODO: save hours slept to database
-        sharedViewModel.saveSleepIntake()
+        sharedViewModel.saveHoursSlept()
         findNavController().navigate(R.id.action_tracker_sleep_to_navigation_tracker)
     }
 

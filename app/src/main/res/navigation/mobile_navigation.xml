@@ -68,7 +68,11 @@
         android:id="@+id/tracker_sleep"
         android:name="com.example.ece489acompanionapp.ui.tracker.SleepTrackerFragment"
         android:label="@string/tracker_sleep"
-        tools:layout="@layout/fragment_tracker_sleep" />
+        tools:layout="@layout/fragment_tracker_sleep" >
+        <action
+            android:id="@+id/action_tracker_sleep_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_meditation"

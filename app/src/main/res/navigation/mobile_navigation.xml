@@ -58,7 +58,11 @@
         android:id="@+id/tracker_water"
         android:name="com.example.ece489acompanionapp.ui.tracker.WaterTrackerFragment"
         android:label="@string/tracker_water"
-        tools:layout="@layout/fragment_tracker_water" />
+        tools:layout="@layout/fragment_tracker_water" >
+        <action
+            android:id="@+id/action_tracker_water_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_sleep"

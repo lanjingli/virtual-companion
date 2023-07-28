@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentHomeBinding
+import com.example.ece489acompanionapp.ui.tracker.TrackerFragment
 import java.time.LocalDateTime
 
 class HomeFragment : Fragment() {
@@ -55,6 +57,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.apply {
+            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_water) }
+        }
+
+        binding?.apply {
+            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_exercise) }
+        }
+
+        binding?.apply {
+            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_sleep) }
+        }
     }
 
     override fun onDestroyView() {

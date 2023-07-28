@@ -15,7 +15,11 @@
     <string name="tracker_substance_abuse">Substance Abuse</string>
     <string name="title_water_tracker">Track Today\'s Water Intake</string>
     <string name="title_weekly_water_tracker">Your Weekly Water Intake</string>
+    <string name="title_exercise_tracker">Track Today\'s Exercise</string>
+    <string name="title_weekly_exercise_tracker">Your Weekly Exercise</string>
     <string name="save">Save</string>
+    <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>
+    <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
     <string-array name="water_array">
         <item>Default</item>
         <item>&lt;1 L</item>

@@ -18,8 +18,9 @@
         tools:layout_editor_absoluteX="8dp" />
 
     <LinearLayout
+        android:id="@+id/task_list"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="360dp"
         android:orientation="vertical"
         android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@+id/text_home"
@@ -56,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="Water Intake"
+                android:text="Hydrate"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:gravity="left|center_vertical"
@@ -98,18 +99,135 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="Sleep Early"
+                android:text="Rest Early"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:gravity="left|center_vertical"
                 android:drawableLeft="@drawable/ic_bed_empty_48dp"/>
         </androidx.cardview.widget.CardView>
-
-
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/task_list"
+        tools:layout_editor_absoluteX="1dp">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Companion Status:"
+            android:textSize="25sp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/grey_400" />
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCompanion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:contentPadding="12dp"
+            app:cardBackgroundColor="@color/orange_300"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/ibCatIcon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_cat"
+                    android:scaleType="fitCenter"
+                    android:background="@null"/>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Battery Level:    "
+                            android:textSize="24sp"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="50%"
+                            android:textSize="24sp"
+                            android:textColor="@color/black"/>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:rotation="90"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_battery_4_bar_24" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wellbeing:   "
+                            android:textSize="24sp"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Healthy"
+                            android:textSize="24sp"
+                            android:textColor="@color/green_600"/>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_home_green_24dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Progress:   "
+                            android:textSize="24sp"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5 points  "
+                            android:textSize="24sp"
+                            android:textColor="@color/teal_200"/>
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:rotation="90"
+                            android:src="@drawable/ic_tracker_teal_24dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

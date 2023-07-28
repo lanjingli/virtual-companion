@@ -11,23 +11,26 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_water"
+            android:id="@+id/action_navigation_home_to_tracker_water"
             app:destination="@id/tracker_water" />
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_meditation"
+            android:id="@+id/action_navigation_home_to_tracker_meditation"
             app:destination="@id/tracker_meditation" />
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_substance_abuse"
+            android:id="@+id/action_navigation_home_to_tracker_substance_abuse"
             app:destination="@id/tracker_substance_abuse" />
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_exercise"
+            android:id="@+id/action_navigation_home_to_tracker_exercise"
             app:destination="@id/tracker_exercise" />
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_food"
+            android:id="@+id/action_navigation_home_to_tracker_food"
             app:destination="@id/tracker_food" />
         <action
-            android:id="@+id/action_navigation_tracker_to_tracker_sleep"
+            android:id="@+id/action_navigation_home_to_tracker_sleep"
             app:destination="@id/tracker_sleep" />
+        <action
+            android:id="@+id/action_navigation_home_to_companion"
+            app:destination="@id/navigation_companion" />
     </fragment>
 
     <fragment

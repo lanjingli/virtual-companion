@@ -58,15 +58,19 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_water) }
+            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
         }
 
         binding?.apply {
-            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_exercise) }
+            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
         }
 
         binding?.apply {
-            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_tracker_to_tracker_sleep) }
+            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
+        }
+
+        binding?.apply {
+            ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
         }
     }
 

@@ -10,4 +10,7 @@
     <color name="red_10">#FFB90E0A</color>
     <color name="grey_600">#FF757575</color>
     <color name="grey_400">#FFBDBDBD</color>
+    <color name="orange_300">#FFFFB347</color>
+    <color name="green_400">#FF53ED58</color>
+    <color name="green_600">#FF2E6930</color>
 </resources>

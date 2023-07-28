@@ -30,6 +30,8 @@ class WaterTrackerFragment : Fragment() {
         _binding = FragmentTrackerWaterBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initWaterStates()
+
         return root
     }
 
@@ -165,6 +167,23 @@ class WaterTrackerFragment : Fragment() {
                 waterTrackerSaveButton.setOnClickListener { goBackToTrackerScreen() }
             }
         }
+    }
+
+    private fun initWaterStates() {
+        if (isWaterFull(0) == true) binding.water1.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water1.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(1) == true) binding.water2.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water2.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(2) == true) binding.water3.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water3.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(3) == true) binding.water4.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water4.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(4) == true) binding.water5.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water5.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(5) == true) binding.water6.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water6.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(6) == true) binding.water7.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water7.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(7) == true) binding.water8.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water8.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(8) == true) binding.water9.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water9.setImageResource(R.drawable.ic_water_full_48dp)
+        if (isWaterFull(9) == true) binding.water10.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water10.setImageResource(R.drawable.ic_water_full_48dp)
+    }
+
+    fun isWaterFull(ind: Int): Boolean? {
+        return sharedViewModel.getWaterState(ind)
     }
 
     fun goBackToTrackerScreen() {

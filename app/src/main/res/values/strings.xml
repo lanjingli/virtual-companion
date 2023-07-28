@@ -20,6 +20,7 @@
     <string name="save">Save</string>
     <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>
     <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
+    <string name="current_user_name">Emily</string><!--will change this later-->
     <string-array name="water_array">
         <item>Default</item>
         <item>&lt;1 L</item>
@@ -82,5 +83,12 @@
         <item>5-6 days</item>
         <item>6-7 days</item>
         <item>7 days+</item>
+    </string-array>
+    <string-array name="greetings">
+        <item>Hello, </item>
+        <item>Good Morning, </item>
+        <item>Good Afternoon, </item>
+        <item>Good Evening, </item>
+        <item>Good Night, </item>
     </string-array>
 </resources>

@@ -10,13 +10,106 @@
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="30sp"
+        android:text="Good Morning, Emily"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_home"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your tasks for today:"
+            android:textSize="25sp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/grey_400" />
+        </FrameLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTask1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:contentPadding="12dp"
+            app:cardBackgroundColor="@color/teal_700"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
+            <Button
+                android:id="@+id/btTask1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Water Intake"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:gravity="left|center_vertical"
+                android:drawableLeft="@drawable/ic_water_empty_48dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTask2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:contentPadding="12dp"
+            app:cardBackgroundColor="@color/red_10"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
+            <Button
+                android:id="@+id/btTask2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Exercise"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:gravity="left|center_vertical"
+                android:drawableLeft="@drawable/ic_exercise_48dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTask3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:contentPadding="12dp"
+            app:cardBackgroundColor="@color/grey_600"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
+            <Button
+                android:id="@+id/btTask3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Sleep Early"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:gravity="left|center_vertical"
+                android:drawableLeft="@drawable/ic_bed_empty_48dp"/>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

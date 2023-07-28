@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ECE489A Companion App</string>
     <string name="title_home">Home</string>
@@ -15,4 +16,14 @@
     <string name="title_water_tracker">Track Today\'s Water Intake</string>
     <string name="title_weekly_water_tracker">Your Weekly Water Intake</string>
     <string name="save">Save</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

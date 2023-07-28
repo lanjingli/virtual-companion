@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.ece489acompanionapp.databinding.FragmentTrackerExerciseBinding
-import com.example.ece489acompanionapp.databinding.FragmentTrackerWaterBinding
 import com.example.ece489acompanionapp.ui.calendar.ExerciseTrackerViewModel
-import com.example.ece489acompanionapp.ui.calendar.WaterTrackerViewModel
 
 class ExerciseTrackerFragment : Fragment() {
 

@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerBinding
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class TrackerFragment : Fragment() {
 
     private var _binding: FragmentTrackerBinding? = null
-
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -34,6 +36,9 @@ class TrackerFragment : Fragment() {
 //        notificationsViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
+        initTrackerButtons()
+
+
         return root
     }
 
@@ -87,6 +92,15 @@ class TrackerFragment : Fragment() {
 
     fun goToSubstanceAbuseTrackerScreen() {
         findNavController().navigate(R.id.action_navigation_tracker_to_tracker_substance_abuse)
+    }
+
+    fun initTrackerButtons() {
+        binding.waterTrackerButton.isEnabled = settingsViewModel.getWaterTrackerEnabled() == true
+        binding.sleepTrackerButton.isEnabled = settingsViewModel.getSleepTrackerEnabled() == true
+        binding.meditationTrackerButton.isEnabled = settingsViewModel.getMeditationTrackerEnabled() == true
+        binding.exerciseTrackerButton.isEnabled = settingsViewModel.getExerciseTrackerEnabled() == true
+        binding.foodTrackerButton.isEnabled = settingsViewModel.getFoodTrackerEnabled() == true
+        binding.substanceAbuseTrackerButton.isEnabled = settingsViewModel.getSubstanceAbuseTrackerEnabled() == true
     }
 
     override fun onDestroyView() {

@@ -46,31 +46,26 @@
                 android:id="@+id/water_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null" />
             <ImageButton
                 android:id="@+id/water_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
         </LinearLayout>
 
@@ -88,31 +83,26 @@
                 android:id="@+id/water_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
             <ImageButton
                 android:id="@+id/water_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_water_empty_48dp"
                 android:background="@null"/>
         </LinearLayout>
 

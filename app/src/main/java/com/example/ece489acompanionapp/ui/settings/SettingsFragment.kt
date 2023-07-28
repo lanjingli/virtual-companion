@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.ece489acompanionapp.R
 import android.R as androidR
 import com.example.ece489acompanionapp.databinding.FragmentSettingsBinding
 
-
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
-
+    private val sharedViewModel: SettingsViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -42,26 +42,32 @@ class SettingsFragment : Fragment() {
 
             waterCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 waterSpinner.isEnabled = isChecked
+                sharedViewModel.setWaterTrackerEnabled(isChecked)
             }
 
             sleepCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 sleepSpinner.isEnabled = isChecked
+                sharedViewModel.setSleepTrackerEnabled(isChecked)
             }
 
             meditationCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 meditationSpinner.isEnabled = isChecked
+                sharedViewModel.setMeditationTrackerEnabled(isChecked)
             }
 
             exerciseCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 exerciseSpinner.isEnabled = isChecked
+                sharedViewModel.setExerciseTrackerEnabled(isChecked)
             }
 
             foodCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 foodSpinner.isEnabled = isChecked
+                sharedViewModel.setFoodTrackerEnabled(isChecked)
             }
 
             substanceAbuseCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 substanceAbuseSpinner.isEnabled = isChecked
+                sharedViewModel.setSubstanceAbuseTrackerEnabled(isChecked)
             }
 
             waterSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -72,9 +78,6 @@ class SettingsFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
-
-
-
         }
     }
 
@@ -98,7 +101,7 @@ class SettingsFragment : Fragment() {
         //init water spinner
         val waterSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.water_array, androidR.layout.simple_spinner_item
         ).also { waterSpinnerAdapter ->
             waterSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.waterSpinner.adapter = waterSpinnerAdapter
@@ -108,7 +111,7 @@ class SettingsFragment : Fragment() {
         //init sleep spinner
         val sleepSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.sleep_array, androidR.layout.simple_spinner_item
         ).also { sleepSpinnerAdapter ->
             sleepSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.sleepSpinner.adapter = sleepSpinnerAdapter
@@ -118,7 +121,7 @@ class SettingsFragment : Fragment() {
         //init meditation spinner
         val meditationSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.meditation_array, androidR.layout.simple_spinner_item
         ).also { meditationSpinnerAdapter ->
             meditationSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.meditationSpinner.adapter = meditationSpinnerAdapter
@@ -128,7 +131,7 @@ class SettingsFragment : Fragment() {
         //init exercise spinner
         val exerciseSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.exercise_array, androidR.layout.simple_spinner_item
         ).also { exerciseSpinnerAdapter ->
             exerciseSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.exerciseSpinner.adapter = exerciseSpinnerAdapter
@@ -138,7 +141,7 @@ class SettingsFragment : Fragment() {
         //init food spinner
         val foodSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.food_array, androidR.layout.simple_spinner_item
         ).also { foodSpinnerAdapter ->
             foodSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.foodSpinner.adapter = foodSpinnerAdapter
@@ -148,7 +151,7 @@ class SettingsFragment : Fragment() {
         // init substance abuse spinner
         val substanceAbuseSpinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity(),
-            R.array.planets_array, androidR.layout.simple_spinner_item
+            R.array.substance_abuse_array, androidR.layout.simple_spinner_item
         ).also { substanceAbuseSpinnerAdapter ->
             substanceAbuseSpinnerAdapter.setDropDownViewResource(androidR.layout.simple_spinner_dropdown_item)
             binding.substanceAbuseSpinner.adapter = substanceAbuseSpinnerAdapter

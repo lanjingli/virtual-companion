@@ -50,7 +50,7 @@ class ExerciseTrackerFragment : Fragment() {
 
         binding?.apply {
             val exerciseHours = countFilledExerciseBeds()
-            txtTodayExercise.text = exerciseHours.toString()
+            txtTodayExercise.text = formatExerciseHours(exerciseHours)
         }
 
         binding?.apply {

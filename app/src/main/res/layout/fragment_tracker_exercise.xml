@@ -257,9 +257,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/title_weekly_exercise_tracker"
                 android:paddingLeft="5dp">
 
-                <!-- ... Existing Rows for Days and Exercise Hours ... -->
-
-                <!-- New TableRow for Today's Exercise -->
                 <TableRow android:background="#E6E6FA" android:padding="10dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -277,7 +274,6 @@
                         android:textColor="@color/black"/>
                 </TableRow>
 
-                <!-- New TableRow for Recommended Exercise -->
                 <TableRow android:background="#E6E6FA" android:padding="10dp">
                     <TextView
                         android:layout_width="wrap_content"

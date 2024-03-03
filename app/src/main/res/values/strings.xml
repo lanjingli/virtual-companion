@@ -23,6 +23,8 @@
     <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
     <string name="title_meditation_tracker">Track Today\'s Minutes Meditated</string>
     <string name="title_weekly_meditation_tracker">Your Weekly Minutes Meditated</string>
+    <string name="title_food_tracker">Track Today\'s Food Intake</string>
+    <string name="title_weekly_food_tracker">Your Weekly Food Intake</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
     <string-array name="water_array">
         <item>Default</item>
@@ -68,13 +70,13 @@
     <string-array name="food_array">
         <item>Default</item>
         <item>&lt;500 Calories</item>
-        <item>500-700 Calories</item>
-        <item>700-900 Calories</item>
-        <item>900-1100 Calories</item>
-        <item>1100-1300 Calories</item>
-        <item>1300-1500 Calories</item>
-        <item>1500-1700 Calories</item>
-        <item>1700 Calories+</item>
+        <item>500-1000 Calories</item>
+        <item>1000-1500 Calories</item>
+        <item>1500-2000 Calories</item>
+        <item>2500-3000 Calories</item>
+        <item>3000-3500 Calories</item>
+        <item>3500-4000 Calories</item>
+        <item>4000 Calories+</item>
     </string-array>
     <string-array name="substance_abuse_array">
         <item>Default</item>

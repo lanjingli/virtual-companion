@@ -37,6 +37,12 @@ class TrackerViewModel : ViewModel() {
         }
     }
 
+    private val _food: MutableLiveData<MutableList<Boolean>> by lazy {
+        MutableLiveData<MutableList<Boolean>>().apply {
+            value = MutableList(10) { true }
+        }
+    }
+
     private val _curWaterIntake = MutableLiveData<Int>(0)
 
     private val _curHoursSlept = MutableLiveData<Int>(0)
@@ -44,6 +50,8 @@ class TrackerViewModel : ViewModel() {
     private val _curHoursExercised = MutableLiveData<Int>(0)
 
     private val _curHoursMeditated = MutableLiveData<Int>(0)
+
+    private val _curFoodIntake = MutableLiveData<Int>(0)
 
     val text: LiveData<String> = _text
 
@@ -116,6 +124,23 @@ class TrackerViewModel : ViewModel() {
             }
         }
         _curHoursMeditated.value = count
+    }
+
+    fun setFoodIsFull(ind: Int, isFull: Boolean) {
+        _food.value?.set(ind, isFull)
+    }
+    fun getFoodState(ind:Int): Boolean? {
+        return _food.value?.get(ind)
+    }
+
+    fun saveFoodIntake() {
+        var count = 0
+        _food.value?.forEach { intake->
+            if (intake == true) {
+                count++
+            }
+        }
+        _curFoodIntake.value = count
     }
 
 }

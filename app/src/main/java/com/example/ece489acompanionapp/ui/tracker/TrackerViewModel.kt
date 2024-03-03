@@ -58,6 +58,11 @@ class TrackerViewModel : ViewModel() {
         _curWaterIntake.value = count
     }
 
+    fun setSleepIsFull(ind: Int, isFull: Boolean) {
+        //val cur = _water.value?.get(ind)
+        _sleep.value?.set(ind, isFull)
+    }
+
     fun getSleepState(ind:Int): Boolean? {
         return _sleep.value?.get(ind)
     }

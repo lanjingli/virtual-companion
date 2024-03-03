@@ -1,5 +1,7 @@
 package com.example.ece489acompanionapp.ui.tracker
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerWaterBinding
+import android.content.pm.PackageManager
+import android.net.Uri
 
 class WaterTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
@@ -18,6 +22,8 @@ class WaterTrackerFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var filledWaterCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +45,11 @@ class WaterTrackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = sharedViewModel
+        }
+
+        binding?.apply {
+            val waterLiters = countFilledCups()
+            txtTodayWater.text = formatWaterLiters(waterLiters)
         }
 
         binding?.apply {
@@ -164,7 +175,37 @@ class WaterTrackerFragment : Fragment() {
             }
 
             binding?.apply {
-                waterTrackerSaveButton.setOnClickListener { goBackToTrackerScreen() }
+                waterTrackerShareButton.setOnClickListener {
+                    val waterLiters = countFilledCups()
+                    val tweetText = "I drank $waterLiters liters of water today! #WellnessCompanion #StayHydrated 🥤️"
+
+                    val tweetIntent = Intent(Intent.ACTION_SEND)
+                    tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+                    tweetIntent.type = "text/plain"
+
+                    val tweetAppPackage = "com.twitter.android"
+                    val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+                    if (tweetAppIntent != null) {
+                        startActivity(tweetIntent.setPackage(tweetAppPackage))
+                    } else {
+                        startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+                    }
+                }
+            }
+
+            binding?.apply {
+                waterTrackerSaveButton.setOnClickListener {
+                    val waterLiters = countFilledCups()
+                    txtTodayWater.text = formatWaterLiters(waterLiters)
+                    val recommendedLitersInt = txtRecommendedWater.text.split(" ")[0].toInt()
+                    val isRecommendedMet = waterLiters >= recommendedLitersInt
+                    if (isRecommendedMet) {
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended water intake goal.")
+                    } else {
+                        showPopupMessage("Keep it up! Drink more water to reach the recommended goal.")
+                    }
+                }
             }
         }
     }
@@ -190,6 +231,65 @@ class WaterTrackerFragment : Fragment() {
         // TODO: save water intake to database
         sharedViewModel.saveWaterIntake()
         findNavController().navigate(R.id.action_tracker_water_to_navigation_tracker)
+    }
+
+    private fun showPopupMessage(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Almost There!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun countFilledCups(): Int {
+        filledWaterCount = 0
+
+        for (i in 0 until 10) {
+            val isFull = sharedViewModel?.getWaterState(i)
+            if (isFull == false) {
+                filledWaterCount++
+            }
+        }
+        return filledWaterCount
+    }
+
+    private fun formatWaterLiters(liters: Int): String {
+        return "$liters L"
+    }
+
+    private fun showPopupMessageWithShare(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Goal Reached!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alertDialogBuilder.setNegativeButton("Share") { dialog, _ ->
+            val tweetText = "I reached my water intake today! #WellnessCompanion #Hydrate 🥤"
+
+            val tweetIntent = Intent(Intent.ACTION_SEND)
+            tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+            tweetIntent.type = "text/plain"
+
+            val tweetAppPackage = "com.twitter.android"
+            val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+            if (tweetAppIntent != null) {
+                startActivity(tweetIntent.setPackage(tweetAppPackage))
+            } else {
+                startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+            }
+
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

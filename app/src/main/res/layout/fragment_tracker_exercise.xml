@@ -12,25 +12,25 @@
             type="com.example.ece489acompanionapp.ui.tracker.TrackerViewModel" />
     </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="36dp"
-            android:layout_marginRight="36dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-    <TextView
-        android:id="@+id/title_exercise_tracker"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="24dp"
-        android:text="@string/title_exercise_tracker" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title_exercise_tracker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24dp"
+            android:text="@string/title_exercise_tracker" />
 
         <LinearLayout
             android:id="@+id/exercise_tracker_row1"
@@ -42,36 +42,36 @@
             android:layout_marginTop="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_exercise_tracker">
-                <ImageButton
-                    android:id="@+id/exercise_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_exercise_48dp"
-                    android:background="@null" />
-                <ImageButton
-                    android:id="@+id/exercise_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_exercise_48dp"
-                    android:background="@null"/>
-                <ImageButton
-                    android:id="@+id/exercise_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_exercise_48dp"
-                    android:background="@null"/>
-                <ImageButton
-                    android:id="@+id/exercise_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_exercise_48dp"
-                    android:background="@null"/>
-                <ImageButton
-                    android:id="@+id/exercise_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_exercise_48dp"
-                    android:background="@null"/>
+            <ImageButton
+                android:id="@+id/exercise_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_exercise_48dp"
+                android:background="@null" />
+            <ImageButton
+                android:id="@+id/exercise_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_exercise_48dp"
+                android:background="@null"/>
+            <ImageButton
+                android:id="@+id/exercise_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_exercise_48dp"
+                android:background="@null"/>
+            <ImageButton
+                android:id="@+id/exercise_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_exercise_48dp"
+                android:background="@null"/>
+            <ImageButton
+                android:id="@+id/exercise_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_exercise_48dp"
+                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout

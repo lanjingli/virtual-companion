@@ -49,7 +49,7 @@ class ExerciseTrackerFragment : Fragment() {
         }
 
         binding?.apply {
-            val exerciseHours = countFilledExerciseBeds()
+            val exerciseHours = countFilledDumbells()
             txtTodayExercise.text = formatExerciseHours(exerciseHours)
         }
 
@@ -177,8 +177,8 @@ class ExerciseTrackerFragment : Fragment() {
 
             binding?.apply {
                 exerciseTrackerShareButton.setOnClickListener {
-                    val exerciseHours = countFilledExerciseBeds()
-                    val tweetText = "I completed $exerciseHours of exercise today! #FitnessGoals 🏋️‍♂️"
+                    val exerciseHours = countFilledDumbells()
+                    val tweetText = "I completed $exerciseHours hours of exercise today! #WellnessCompanion #StayingFit 🏋️‍♂️"
 
                     val tweetIntent = Intent(Intent.ACTION_SEND)
                     tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
@@ -197,14 +197,14 @@ class ExerciseTrackerFragment : Fragment() {
 
             binding?.apply {
                 exerciseTrackerSaveButton.setOnClickListener {
-                    val exerciseHours = countFilledExerciseBeds()
+                    val exerciseHours = countFilledDumbells()
                     txtTodayExercise.text = formatExerciseHours(exerciseHours)
                     val recommendedHoursInt = txtRecommendedExercise.text.split(" ")[0].toInt()
                     val isRecommendedMet = exerciseHours >= recommendedHoursInt
                     if (isRecommendedMet) {
                         showPopupMessageWithShare("Great job! You have met or exceeded the recommended exercise goal.")
                     } else {
-                        showPopupMessage("Keep it up! You still have some exercise left to reach the recommended goal.")
+                        showPopupMessage("Keep it up! Do some more exercise to reach the recommended goal.")
                     }
                 }
             }
@@ -237,7 +237,7 @@ class ExerciseTrackerFragment : Fragment() {
 
     private fun showPopupMessage(message: String) {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setTitle("Popup Message")
+        alertDialogBuilder.setTitle("Almost There!")
         alertDialogBuilder.setMessage(message)
         alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
@@ -247,7 +247,7 @@ class ExerciseTrackerFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun countFilledExerciseBeds(): Int {
+    private fun countFilledDumbells(): Int {
         filledExerciseCount = 0
 
         for (i in 0 until 10) {
@@ -265,14 +265,14 @@ class ExerciseTrackerFragment : Fragment() {
 
     private fun showPopupMessageWithShare(message: String) {
         val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setTitle("Popup Message")
+        alertDialogBuilder.setTitle("Goal Reached!")
         alertDialogBuilder.setMessage(message)
         alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
         }
 
         alertDialogBuilder.setNegativeButton("Share") { dialog, _ ->
-            val tweetText = "I reached my exercise goal today! #FitnessGoals 🏋️‍♂️"
+            val tweetText = "I reached my exercise goal today! #WellnessCompanion #FitnessGoals 🏋️‍♂️"
 
             val tweetIntent = Intent(Intent.ACTION_SEND)
             tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)

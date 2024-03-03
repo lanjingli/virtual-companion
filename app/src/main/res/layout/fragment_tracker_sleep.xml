@@ -246,6 +246,53 @@
             </TableRow>
         </TableLayout>
 
+        <TableLayout
+            android:id="@+id/table2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_weekly_sleep_tracker"
+            android:paddingLeft="5dp">
+
+            <TableRow android:background="#E6E6FA" android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today's Sleep"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/txtTodaySleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:text="0 H"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
+            </TableRow>
+
+            <TableRow android:background="#E6E6FA" android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recommended Sleep"
+                    android:gravity="center"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/txtRecommendedSleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="90dp"
+                    android:gravity="center"
+                    android:text="8 H"
+                    android:textColor="@color/black" />
+            </TableRow>
+        </TableLayout>
+
         <Button
             android:id="@+id/sleep_tracker_save_button"
             android:layout_width="match_parent"
@@ -254,5 +301,14 @@
             android:text="@string/save"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+        <Button
+            android:id="@+id/sleep_tracker_share_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:onClick="onShareButtonClick"
+            android:text="@string/share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -31,11 +31,19 @@ class TrackerViewModel : ViewModel() {
         }
     }
 
+    private val _meditation: MutableLiveData<MutableList<Boolean>> by lazy {
+        MutableLiveData<MutableList<Boolean>>().apply {
+            value = MutableList(10) { true }
+        }
+    }
+
     private val _curWaterIntake = MutableLiveData<Int>(0)
 
     private val _curHoursSlept = MutableLiveData<Int>(0)
 
     private val _curHoursExercised = MutableLiveData<Int>(0)
+
+    private val _curHoursMeditated = MutableLiveData<Int>(0)
 
     val text: LiveData<String> = _text
 
@@ -91,6 +99,23 @@ class TrackerViewModel : ViewModel() {
             }
         }
         _curHoursExercised.value = count
+    }
+
+    fun setMeditationIsFull(ind: Int, isFull: Boolean) {
+        _meditation.value?.set(ind, isFull)
+    }
+    fun getMeditationState(ind:Int): Boolean? {
+        return _meditation.value?.get(ind)
+    }
+
+    fun saveMeditationIntake() {
+        var count = 0
+        _meditation.value?.forEach { hour->
+            if (hour == true) {
+                count++
+            }
+        }
+        _curHoursMeditated.value = count
     }
 
 }

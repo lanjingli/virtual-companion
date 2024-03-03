@@ -100,7 +100,11 @@
         android:id="@+id/tracker_meditation"
         android:name="com.example.ece489acompanionapp.ui.tracker.MeditationTrackerFragment"
         android:label="@string/tracker_meditation"
-        tools:layout="@layout/fragment_tracker_meditation" />
+        tools:layout="@layout/fragment_tracker_meditation" >
+        <action
+            android:id="@+id/action_tracker_meditation_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_exercise"

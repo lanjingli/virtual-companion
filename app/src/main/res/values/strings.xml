@@ -21,6 +21,8 @@
     <string name="share">Share</string>
     <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>
     <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
+    <string name="title_meditation_tracker">Track Today\'s Minutes Meditated</string>
+    <string name="title_weekly_meditation_tracker">Your Weekly Minutes Meditated</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
     <string-array name="water_array">
         <item>Default</item>
@@ -43,14 +45,14 @@
     </string-array>
     <string-array name="meditation_array">
         <item>Default</item>
-        <item>&lt;1 hrs</item>
-        <item>1-2 hrs</item>
-        <item>2-3 hrs</item>
-        <item>3-4 hrs</item>
-        <item>4-5 hrs</item>
-        <item>5-6 hrs</item>
-        <item>6-7 hrs</item>
-        <item>7 hrs+</item>
+        <item>&lt;5 mins</item>
+        <item>5-10 mins</item>
+        <item>10-15 mins</item>
+        <item>15-20 mins</item>
+        <item>20-25 mins</item>
+        <item>25-30 mins</item>
+        <item>30-45 mins</item>
+        <item>45 mins+</item>
     </string-array>
     <string-array name="exercise_array">
         <item>Default</item>

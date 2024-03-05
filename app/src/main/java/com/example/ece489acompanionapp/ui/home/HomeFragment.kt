@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentHomeBinding
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 import com.example.ece489acompanionapp.ui.tracker.TrackerFragment
 import java.time.LocalDateTime
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -48,7 +52,11 @@ class HomeFragment : Fragment() {
             greetingsIndex = 4
         }
         val greeting = resources.getStringArray(R.array.greetings)[greetingsIndex]
-        val currentUserName = getString(R.string.current_user_name)
+        val globalname = infoViewModel.getName()
+        var currentUserName = "Emily"
+        if (globalname != null) {
+            currentUserName = infoViewModel.getName().toString()
+        }
         textView.text = greeting + " " + currentUserName
 
         return root

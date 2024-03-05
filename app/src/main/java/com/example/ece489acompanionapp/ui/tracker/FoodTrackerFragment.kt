@@ -14,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerFoodBinding
 import com.example.ece489acompanionapp.ui.calendar.FoodTrackerViewModel
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class FoodTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerFoodBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -51,6 +53,9 @@ class FoodTrackerFragment : Fragment() {
         binding?.apply {
             val foodCalories = countFilledBurgers()
             txtTodayFood.text = formatFoodCalories(foodCalories)
+            val age = infoViewModel.getAge()
+            val gender = infoViewModel.getGender()
+            txtRecommendedFood.text = formatFoodCalories(getRecommendedFood(age, gender))
         }
 
         binding?.apply {
@@ -231,6 +236,32 @@ class FoodTrackerFragment : Fragment() {
             R.drawable.ic_burger_full_48dp)
         if (isFoodFull(9) == true) binding.food10.setImageResource(R.drawable.ic_burger_empty_48dp) else binding.food10.setImageResource(
             R.drawable.ic_burger_full_48dp)
+    }
+
+    private fun getRecommendedFood(age: Int?, gender: String?): Int {
+        var recommended = 2000
+        if (age != null) {
+            if (age <= 3) {
+                recommended = 1200
+            }
+            else if (gender == "Female") {
+                if (age in 4..8) recommended = 1500
+                if (age in 9 .. 13) recommended = 1800
+                if (age in 14..18) recommended = 2000
+                if (age in 19 .. 30) recommended = 2100
+                if (age in 31..50) recommended = 2000
+                if (age >= 51) recommended = 1800
+            }
+            else {
+                if (age in 4..8) recommended = 1500
+                if (age in 9 .. 13) recommended = 1900
+                if (age in 14..18) recommended = 2500
+                if (age in 19 .. 30) recommended = 2700
+                if (age in 31..50) recommended = 2500
+                if (age >= 51) recommended = 2300
+            }
+        }
+        return recommended
     }
 
     fun isFoodFull(ind: Int): Boolean? {

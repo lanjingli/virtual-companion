@@ -189,49 +189,49 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="9 L"
+                    android:text="1700"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="8 L"
+                    android:text="1900"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="7 L"
+                    android:text="1800"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="6 L"
+                    android:text="1300"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="5 L"
+                    android:text="1200"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="6 L"
+                    android:text="1500"
                     android:textColor="@color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="2 L"
+                    android:text="2000"
                     android:textColor="@color/black"/>
             </TableRow>
         </TableLayout>
@@ -259,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
-                    android:text="0 L"
+                    android:text="0 ml"
                     android:gravity="center"
                     android:textColor="@color/black"/>
             </TableRow>
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:gravity="center"
-                    android:text="4 L"
+                    android:text="2000 ml"
                     android:textColor="@color/black" />
             </TableRow>
         </TableLayout>

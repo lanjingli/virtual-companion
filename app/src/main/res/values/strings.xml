@@ -33,11 +33,11 @@
     </string-array>
     <string-array name="water_array">
         <item>Default</item>
-        <item>&lt;1 L</item>
-        <item>1 L-3 L</item>
-        <item>3 L-6 L</item>
-        <item>6 L-9 L</item>
-        <item>9 L+</item>
+        <item>&lt;500 ml</item>
+        <item>500 ml-1000 ml</item>
+        <item>1000 ml-1500 ml</item>
+        <item>1500 ml-2000 ml</item>
+        <item>2000 ml+</item>
     </string-array>
     <string-array name="sleep_array">
         <item>Default</item>
@@ -63,14 +63,14 @@
     </string-array>
     <string-array name="exercise_array">
         <item>Default</item>
-        <item>&lt;1 hrs</item>
-        <item>1-2 hrs</item>
-        <item>2-3 hrs</item>
-        <item>3-4 hrs</item>
-        <item>4-5 hrs</item>
-        <item>5-6 hrs</item>
-        <item>6-7 hrs</item>
-        <item>7 hrs+</item>
+        <item>&lt;15 mins</item>
+        <item>15-30 mins</item>
+        <item>30-45 mins</item>
+        <item>45-60 mins</item>
+        <item>75-90 mins</item>
+        <item>90-105 mins</item>
+        <item>105-120 mins</item>
+        <item>120 mins+</item>
     </string-array>
     <string-array name="food_array">
         <item>Default</item>

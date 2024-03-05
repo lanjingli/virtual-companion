@@ -14,10 +14,12 @@ import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerWaterBinding
 import android.content.pm.PackageManager
 import android.net.Uri
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class WaterTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerWaterBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,7 +51,10 @@ class WaterTrackerFragment : Fragment() {
 
         binding?.apply {
             val waterLiters = countFilledCups()
-            txtTodayWater.text = formatWaterLiters(waterLiters)
+            txtTodayWater.text = formatWatermilliLiters(waterLiters)
+            val age = infoViewModel.getAge()
+            val gender = infoViewModel.getGender()
+            txtRecommendedWater.text = formatWatermilliLiters(getRecommendedWater(age, gender))
         }
 
         binding?.apply {
@@ -176,8 +181,8 @@ class WaterTrackerFragment : Fragment() {
 
             binding?.apply {
                 waterTrackerShareButton.setOnClickListener {
-                    val waterLiters = countFilledCups()
-                    val tweetText = "I drank $waterLiters liters of water today! #WellnessCompanion #StayHydrated 🥤️"
+                    val watermilliLiters = countFilledCups()
+                    val tweetText = "I drank $watermilliLiters milliliters of water today! #WellnessCompanion #StayHydrated 🥤️"
 
                     val tweetIntent = Intent(Intent.ACTION_SEND)
                     tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
@@ -196,10 +201,10 @@ class WaterTrackerFragment : Fragment() {
 
             binding?.apply {
                 waterTrackerSaveButton.setOnClickListener {
-                    val waterLiters = countFilledCups()
-                    txtTodayWater.text = formatWaterLiters(waterLiters)
-                    val recommendedLitersInt = txtRecommendedWater.text.split(" ")[0].toInt()
-                    val isRecommendedMet = waterLiters >= recommendedLitersInt
+                    val watermilliLiters = countFilledCups()
+                    txtTodayWater.text = formatWatermilliLiters(watermilliLiters)
+                    val recommendedmilliLitersInt = txtRecommendedWater.text.split(" ")[0].toInt()
+                    val isRecommendedMet = watermilliLiters >= recommendedmilliLitersInt
                     if (isRecommendedMet) {
                         showPopupMessageWithShare("Great job! You have met or exceeded the recommended water intake goal.")
                     } else {
@@ -221,6 +226,33 @@ class WaterTrackerFragment : Fragment() {
         if (isWaterFull(7) == true) binding.water8.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water8.setImageResource(R.drawable.ic_water_full_48dp)
         if (isWaterFull(8) == true) binding.water9.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water9.setImageResource(R.drawable.ic_water_full_48dp)
         if (isWaterFull(9) == true) binding.water10.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water10.setImageResource(R.drawable.ic_water_full_48dp)
+    }
+
+    private fun getRecommendedWater(age: Int?, gender: String?): Int {
+        var recommended = 2000
+        if (age != null) {
+            if (age <= 1) {
+                recommended = 1000
+            }
+            else if (age in 1..2) {
+                recommended = 1200
+            }
+            else if (age in 2..3){
+                recommended = 1300
+            }
+            else if (age in 4..8){
+                recommended = 1600
+            }
+            else if (gender == "Female") {
+                if (age in 9..13) recommended = 1900
+                if (age >= 14) recommended = 2000
+            }
+            else {
+                if (age in 9..13) recommended = 2100
+                if (age >= 14) recommended = 2500
+            }
+        }
+        return recommended
     }
 
     fun isWaterFull(ind: Int): Boolean? {
@@ -254,11 +286,11 @@ class WaterTrackerFragment : Fragment() {
                 filledWaterCount++
             }
         }
-        return filledWaterCount
+        return filledWaterCount * 250
     }
 
-    private fun formatWaterLiters(liters: Int): String {
-        return "$liters L"
+    private fun formatWatermilliLiters(milliliters: Int): String {
+        return "$milliliters ml"
     }
 
     private fun showPopupMessageWithShare(message: String) {

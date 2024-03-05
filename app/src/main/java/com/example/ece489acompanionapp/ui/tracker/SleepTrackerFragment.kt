@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerSleepBinding
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class SleepTrackerFragment : Fragment() {
 
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerSleepBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -46,6 +48,12 @@ class SleepTrackerFragment : Fragment() {
             viewModel = sharedViewModel
         }
 
+        binding?.apply {
+            val hoursSlept = countFilledBeds()
+            txtTodaySleep.text = formatSleepHours(hoursSlept)
+            val age = infoViewModel.getAge()
+            txtRecommendedSleep.text = formatSleepHours(getRecommendedSleep(age))
+        }
 
         binding?.apply {
             bed1.setOnClickListener {
@@ -216,6 +224,31 @@ class SleepTrackerFragment : Fragment() {
         if (isSleepFull(7) == true) binding.bed8.setImageResource(R.drawable.ic_bed_empty_48dp) else binding.bed8.setImageResource(R.drawable.ic_bed_full_48dp)
         if (isSleepFull(8) == true) binding.bed9.setImageResource(R.drawable.ic_bed_empty_48dp) else binding.bed9.setImageResource(R.drawable.ic_bed_full_48dp)
         if (isSleepFull(9) == true) binding.bed10.setImageResource(R.drawable.ic_bed_empty_48dp) else binding.bed10.setImageResource(R.drawable.ic_bed_full_48dp)
+    }
+
+    private fun getRecommendedSleep(age: Int?): Int {
+        var recommended = 8
+        if (age != null) {
+            if (age <= 1) {
+                recommended = 14
+            }
+            else if (age in 1..2) {
+                recommended = 13
+            }
+            else if (age in 3..5){
+                recommended = 12
+            }
+            else if (age in 6..12){
+                recommended = 10
+            }
+            else if (age in 13..18){
+                recommended = 9
+            }
+            else if (age >= 18){
+                recommended = 8
+            }
+        }
+        return recommended
     }
 
     fun isSleepFull(ind: Int): Boolean? {

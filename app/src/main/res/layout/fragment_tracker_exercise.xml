@@ -199,49 +199,49 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="9 H"
+                            android:text="15"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="8 H"
+                            android:text="30"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="7 H"
+                            android:text="45"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="6 H"
+                            android:text="15"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="5 H"
+                            android:text="30"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="6 H"
+                            android:text="120"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="2 H"
+                            android:text="60"
                             android:textColor="@color/black"/>
                 </TableRow>
         </TableLayout>
@@ -269,7 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="80dp"
-                        android:text="0 H"
+                        android:text="0 mins"
                         android:gravity="center"
                         android:textColor="@color/black"/>
                 </TableRow>
@@ -288,7 +288,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="80dp"
                         android:gravity="center"
-                        android:text="2 H"
+                        android:text="60 mins"
                         android:textColor="@color/black" />
                 </TableRow>
             </TableLayout>
@@ -307,7 +307,7 @@
             android:id="@+id/exercise_tracker_share_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="55dp"
             android:onClick="onShareButtonClick"
             android:text="@string/share"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -14,10 +14,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class ExerciseTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerExerciseBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,8 +51,10 @@ class ExerciseTrackerFragment : Fragment() {
         }
 
         binding?.apply {
-            val exerciseHours = countFilledDumbells()
-            txtTodayExercise.text = formatExerciseHours(exerciseHours)
+            val exerciseMinutes = countFilledDumbells()
+            txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
+            val age = infoViewModel.getAge()
+            txtRecommendedExercise.text = formatExerciseMinutes(getRecommendedExercise(age))
         }
 
         binding?.apply {
@@ -177,8 +181,8 @@ class ExerciseTrackerFragment : Fragment() {
 
             binding?.apply {
                 exerciseTrackerShareButton.setOnClickListener {
-                    val exerciseHours = countFilledDumbells()
-                    val tweetText = "I completed $exerciseHours hours of exercise today! #WellnessCompanion #StayingFit 🏋️‍♂️"
+                    val exerciseMinutes = countFilledDumbells()
+                    val tweetText = "I completed $exerciseMinutes minutes of exercise today! #WellnessCompanion #StayingFit 🏋️‍♂️"
 
                     val tweetIntent = Intent(Intent.ACTION_SEND)
                     tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
@@ -197,10 +201,10 @@ class ExerciseTrackerFragment : Fragment() {
 
             binding?.apply {
                 exerciseTrackerSaveButton.setOnClickListener {
-                    val exerciseHours = countFilledDumbells()
-                    txtTodayExercise.text = formatExerciseHours(exerciseHours)
-                    val recommendedHoursInt = txtRecommendedExercise.text.split(" ")[0].toInt()
-                    val isRecommendedMet = exerciseHours >= recommendedHoursInt
+                    val exerciseMinutes = countFilledDumbells()
+                    txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
+                    val recommendedMinutesInt = txtRecommendedExercise.text.split(" ")[0].toInt()
+                    val isRecommendedMet = exerciseMinutes >= recommendedMinutesInt
                     if (isRecommendedMet) {
                         showPopupMessageWithShare("Great job! You have met or exceeded the recommended exercise goal.")
                     } else {
@@ -222,6 +226,25 @@ class ExerciseTrackerFragment : Fragment() {
         if (isExerciseFull(7) == true) binding.exercise8.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise8.setImageResource(R.drawable.ic_exercise_full_48dp)
         if (isExerciseFull(8) == true) binding.exercise9.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise9.setImageResource(R.drawable.ic_exercise_full_48dp)
         if (isExerciseFull(9) == true) binding.exercise10.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise10.setImageResource(R.drawable.ic_exercise_full_48dp)
+    }
+
+    private fun getRecommendedExercise(age: Int?): Int {
+        var recommended = 60
+        if (age != null) {
+            if (age <= 5) {
+                recommended = 90
+            }
+            else if (age in 6..17) {
+                recommended = 60
+            }
+            else if (age in 18..64){
+                recommended = 22
+            }
+            else if (age >= 65){
+                recommended = 22
+            }
+        }
+        return recommended
     }
 
     fun isExerciseFull(ind: Int): Boolean? {
@@ -256,11 +279,11 @@ class ExerciseTrackerFragment : Fragment() {
                 filledExerciseCount++
             }
         }
-        return filledExerciseCount
+        return filledExerciseCount * 15
     }
 
-    private fun formatExerciseHours(hours: Int): String {
-        return "$hours H"
+    private fun formatExerciseMinutes(minutes: Int): String {
+        return "$minutes mins"
     }
 
     private fun showPopupMessageWithShare(message: String) {

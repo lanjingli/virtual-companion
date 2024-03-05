@@ -148,7 +148,7 @@
                 <ImageButton
                     android:id="@+id/ibCatIcon"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="87dp"
                     android:src="@drawable/ic_cat"
                     android:scaleType="fitCenter"
                     android:background="@null"/>
@@ -163,14 +163,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Battery Level:    "
-                            android:textSize="24sp"
+                            android:text="Battery:           "
+                            android:textSize="20sp"
                             android:textColor="@color/white"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="50%"
-                            android:textSize="24sp"
+                            android:textSize="20sp"
                             android:textColor="@color/black"/>
                         <ImageView
                             android:layout_width="0dp"
@@ -186,14 +186,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wellbeing:   "
-                            android:textSize="24sp"
+                            android:text="Wellbeing: "
+                            android:textSize="20sp"
                             android:textColor="@color/white"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Healthy"
-                            android:textSize="24sp"
+                            android:textSize="20sp"
                             android:textColor="@color/green_600"/>
                         <ImageView
                             android:layout_width="0dp"
@@ -208,14 +208,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Progress:   "
-                            android:textSize="24sp"
+                            android:text="Progress:  "
+                            android:textSize="20sp"
                             android:textColor="@color/white"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5 points  "
-                            android:textSize="24sp"
+                            android:text="5 points"
+                            android:textSize="20sp"
                             android:textColor="@color/teal_200"/>
                         <ImageView
                             android:layout_width="0dp"

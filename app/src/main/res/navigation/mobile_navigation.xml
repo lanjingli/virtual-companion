@@ -101,7 +101,21 @@
         android:id="@+id/navigation_settings"
         android:name="com.example.ece489acompanionapp.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_navigation_setting_to_personal_info"
+            app:destination="@id/personal_info" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/personal_info"
+        android:name="com.example.ece489acompanionapp.ui.information.PersonalInfoFragment"
+        android:label="@string/personal_information"
+        tools:layout="@layout/fragment_personal_info" >
+        <action
+            android:id="@+id/action_navigation_personal_info_to_setting"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_water"
@@ -127,7 +141,11 @@
         android:id="@+id/tracker_meditation"
         android:name="com.example.ece489acompanionapp.ui.tracker.MeditationTrackerFragment"
         android:label="@string/tracker_meditation"
-        tools:layout="@layout/fragment_tracker_meditation" />
+        tools:layout="@layout/fragment_tracker_meditation" >
+        <action
+            android:id="@+id/action_tracker_meditation_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_exercise"
@@ -143,7 +161,11 @@
         android:id="@+id/tracker_food"
         android:name="com.example.ece489acompanionapp.ui.tracker.FoodTrackerFragment"
         android:label="@string/tracker_food"
-        tools:layout="@layout/fragment_tracker_food" />
+        tools:layout="@layout/fragment_tracker_food" >
+        <action
+            android:id="@+id/action_tracker_food_to_navigation_tracker"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
 
     <fragment
         android:id="@+id/tracker_substance_abuse"

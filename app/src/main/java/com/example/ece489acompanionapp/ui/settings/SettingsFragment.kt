@@ -9,13 +9,16 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import android.R as androidR
 import com.example.ece489acompanionapp.databinding.FragmentSettingsBinding
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val sharedViewModel: SettingsViewModel by activityViewModels()
+    private val  infoViewModel: PersonalInfoViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -31,6 +34,7 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initPersonalInformation()
         initTrackerSpinners()
         initTrackerCheckboxes()
         return root
@@ -79,6 +83,18 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
+
+        binding?.apply {
+            btSettingsEditPersonalInformation.setOnClickListener { findNavController().navigate(R.id.action_navigation_setting_to_personal_info) }
+        }
+    }
+
+    private fun initPersonalInformation() {
+        infoViewModel.getName()?.let { name -> binding.titleName.text = name.toString() }
+        infoViewModel.getAge()?.let { age -> binding.valueAge.text = age.toString() }
+        infoViewModel.getHeight()?.let { height -> binding.valueHeight.text = height.toString() }
+        infoViewModel.getWeight()?.let { weight -> binding.valueWeight.text = weight.toString() }
+        infoViewModel.getGender()?.let { gender -> binding.valueGender.text = gender.toString() }
     }
 
     private fun initTrackerCheckboxes() {

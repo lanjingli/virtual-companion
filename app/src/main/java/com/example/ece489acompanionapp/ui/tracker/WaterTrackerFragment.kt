@@ -1,5 +1,7 @@
 package com.example.ece489acompanionapp.ui.tracker
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerWaterBinding
+import android.content.pm.PackageManager
+import android.net.Uri
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class WaterTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerWaterBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var filledWaterCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +47,14 @@ class WaterTrackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             viewModel = sharedViewModel
+        }
+
+        binding?.apply {
+            val waterLiters = countFilledCups()
+            txtTodayWater.text = formatWatermilliLiters(waterLiters)
+            val age = infoViewModel.getAge()
+            val gender = infoViewModel.getGender()
+            txtRecommendedWater.text = formatWatermilliLiters(getRecommendedWater(age, gender))
         }
 
         binding?.apply {
@@ -164,7 +180,37 @@ class WaterTrackerFragment : Fragment() {
             }
 
             binding?.apply {
-                waterTrackerSaveButton.setOnClickListener { goBackToTrackerScreen() }
+                waterTrackerShareButton.setOnClickListener {
+                    val watermilliLiters = countFilledCups()
+                    val tweetText = "I drank $watermilliLiters milliliters of water today! #WellnessCompanion #StayHydrated 🥤️"
+
+                    val tweetIntent = Intent(Intent.ACTION_SEND)
+                    tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+                    tweetIntent.type = "text/plain"
+
+                    val tweetAppPackage = "com.twitter.android"
+                    val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+                    if (tweetAppIntent != null) {
+                        startActivity(tweetIntent.setPackage(tweetAppPackage))
+                    } else {
+                        startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+                    }
+                }
+            }
+
+            binding?.apply {
+                waterTrackerSaveButton.setOnClickListener {
+                    val watermilliLiters = countFilledCups()
+                    txtTodayWater.text = formatWatermilliLiters(watermilliLiters)
+                    val recommendedmilliLitersInt = txtRecommendedWater.text.split(" ")[0].toInt()
+                    val isRecommendedMet = watermilliLiters >= recommendedmilliLitersInt
+                    if (isRecommendedMet) {
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended water intake goal.")
+                    } else {
+                        showPopupMessage("Keep it up! Drink more water to reach the recommended goal.")
+                    }
+                }
             }
         }
     }
@@ -182,6 +228,33 @@ class WaterTrackerFragment : Fragment() {
         if (isWaterFull(9) == true) binding.water10.setImageResource(R.drawable.ic_water_empty_48dp) else binding.water10.setImageResource(R.drawable.ic_water_full_48dp)
     }
 
+    private fun getRecommendedWater(age: Int?, gender: String?): Int {
+        var recommended = 2000
+        if (age != null) {
+            if (age <= 1) {
+                recommended = 1000
+            }
+            else if (age in 1..2) {
+                recommended = 1200
+            }
+            else if (age in 2..3){
+                recommended = 1300
+            }
+            else if (age in 4..8){
+                recommended = 1600
+            }
+            else if (gender == "Female") {
+                if (age in 9..13) recommended = 1900
+                if (age >= 14) recommended = 2000
+            }
+            else {
+                if (age in 9..13) recommended = 2100
+                if (age >= 14) recommended = 2500
+            }
+        }
+        return recommended
+    }
+
     fun isWaterFull(ind: Int): Boolean? {
         return sharedViewModel.getWaterState(ind)
     }
@@ -190,6 +263,65 @@ class WaterTrackerFragment : Fragment() {
         // TODO: save water intake to database
         sharedViewModel.saveWaterIntake()
         findNavController().navigate(R.id.action_tracker_water_to_navigation_tracker)
+    }
+
+    private fun showPopupMessage(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Almost There!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun countFilledCups(): Int {
+        filledWaterCount = 0
+
+        for (i in 0 until 10) {
+            val isFull = sharedViewModel?.getWaterState(i)
+            if (isFull == false) {
+                filledWaterCount++
+            }
+        }
+        return filledWaterCount * 250
+    }
+
+    private fun formatWatermilliLiters(milliliters: Int): String {
+        return "$milliliters ml"
+    }
+
+    private fun showPopupMessageWithShare(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Goal Reached!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alertDialogBuilder.setNegativeButton("Share") { dialog, _ ->
+            val tweetText = "I reached my water intake today! #WellnessCompanion #Hydrate 🥤"
+
+            val tweetIntent = Intent(Intent.ACTION_SEND)
+            tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+            tweetIntent.type = "text/plain"
+
+            val tweetAppPackage = "com.twitter.android"
+            val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+            if (tweetAppIntent != null) {
+                startActivity(tweetIntent.setPackage(tweetAppPackage))
+            } else {
+                startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+            }
+
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

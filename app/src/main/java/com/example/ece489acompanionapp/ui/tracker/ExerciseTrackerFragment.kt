@@ -10,14 +10,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerExerciseBinding
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 
 class ExerciseTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerExerciseBinding? = null
+    private val infoViewModel: PersonalInfoViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var filledExerciseCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,13 +38,23 @@ class ExerciseTrackerFragment : Fragment() {
         _binding = FragmentTrackerExerciseBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initExerciseStates()
+
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding?.apply {
             viewModel = sharedViewModel
+        }
+
+        binding?.apply {
+            val exerciseMinutes = countFilledDumbells()
+            txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
+            val age = infoViewModel.getAge()
+            txtRecommendedExercise.text = formatExerciseMinutes(getRecommendedExercise(age))
         }
 
         binding?.apply {
@@ -162,15 +180,141 @@ class ExerciseTrackerFragment : Fragment() {
             }
 
             binding?.apply {
-                exerciseTrackerSaveButton.setOnClickListener { goBackToTrackerScreen() }
+                exerciseTrackerShareButton.setOnClickListener {
+                    val exerciseMinutes = countFilledDumbells()
+                    val tweetText = "I completed $exerciseMinutes minutes of exercise today! #WellnessCompanion #StayingFit 🏋️‍♂️"
+
+                    val tweetIntent = Intent(Intent.ACTION_SEND)
+                    tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+                    tweetIntent.type = "text/plain"
+
+                    val tweetAppPackage = "com.twitter.android"
+                    val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+                    if (tweetAppIntent != null) {
+                        startActivity(tweetIntent.setPackage(tweetAppPackage))
+                    } else {
+                        startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+                    }
+                }
+            }
+
+            binding?.apply {
+                exerciseTrackerSaveButton.setOnClickListener {
+                    val exerciseMinutes = countFilledDumbells()
+                    txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
+                    val recommendedMinutesInt = txtRecommendedExercise.text.split(" ")[0].toInt()
+                    val isRecommendedMet = exerciseMinutes >= recommendedMinutesInt
+                    if (isRecommendedMet) {
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended exercise goal.")
+                    } else {
+                        showPopupMessage("Keep it up! Do some more exercise to reach the recommended goal.")
+                    }
+                }
             }
         }
     }
+
+    private fun initExerciseStates() {
+        if (isExerciseFull(0) == true) binding.exercise1.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise1.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(1) == true) binding.exercise2.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise2.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(2) == true) binding.exercise3.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise3.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(3) == true) binding.exercise4.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise4.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(4) == true) binding.exercise5.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise5.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(5) == true) binding.exercise6.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise6.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(6) == true) binding.exercise7.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise7.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(7) == true) binding.exercise8.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise8.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(8) == true) binding.exercise9.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise9.setImageResource(R.drawable.ic_exercise_full_48dp)
+        if (isExerciseFull(9) == true) binding.exercise10.setImageResource(R.drawable.ic_exercise_48dp) else binding.exercise10.setImageResource(R.drawable.ic_exercise_full_48dp)
+    }
+
+    private fun getRecommendedExercise(age: Int?): Int {
+        var recommended = 60
+        if (age != null) {
+            if (age <= 5) {
+                recommended = 90
+            }
+            else if (age in 6..17) {
+                recommended = 60
+            }
+            else if (age in 18..64){
+                recommended = 22
+            }
+            else if (age >= 65){
+                recommended = 22
+            }
+        }
+        return recommended
+    }
+
+    fun isExerciseFull(ind: Int): Boolean? {
+        return sharedViewModel.getExerciseState(ind)
+    }
+
 
     fun goBackToTrackerScreen() {
         // TODO: save water intake to database
         sharedViewModel.saveExerciseIntake()
         findNavController().navigate(R.id.action_tracker_exercise_to_navigation_tracker)
+    }
+
+    private fun showPopupMessage(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Almost There!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun countFilledDumbells(): Int {
+        filledExerciseCount = 0
+
+        for (i in 0 until 10) {
+            val isFull = sharedViewModel?.getExerciseState(i)
+            if (isFull == false) {
+                filledExerciseCount++
+            }
+        }
+        return filledExerciseCount * 15
+    }
+
+    private fun formatExerciseMinutes(minutes: Int): String {
+        return "$minutes mins"
+    }
+
+    private fun showPopupMessageWithShare(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Goal Reached!")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alertDialogBuilder.setNegativeButton("Share") { dialog, _ ->
+            val tweetText = "I reached my exercise goal today! #WellnessCompanion #FitnessGoals 🏋️‍♂️"
+
+            val tweetIntent = Intent(Intent.ACTION_SEND)
+            tweetIntent.putExtra(Intent.EXTRA_TEXT, tweetText)
+            tweetIntent.type = "text/plain"
+
+            val tweetAppPackage = "com.twitter.android"
+            val tweetAppIntent = activity?.packageManager?.getLaunchIntentForPackage(tweetAppPackage)
+
+            if (tweetAppIntent != null) {
+                startActivity(tweetIntent.setPackage(tweetAppPackage))
+            } else {
+                startActivity(Intent.createChooser(tweetIntent, "Share on Twitter"))
+            }
+
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

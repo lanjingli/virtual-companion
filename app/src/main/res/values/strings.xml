@@ -18,19 +18,26 @@
     <string name="title_exercise_tracker">Track Today\'s Exercise</string>
     <string name="title_weekly_exercise_tracker">Your Weekly Exercise</string>
     <string name="save">Save</string>
+    <string name="share">Share</string>
     <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>
     <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
+    <string name="title_meditation_tracker">Track Today\'s Minutes Meditated</string>
+    <string name="title_weekly_meditation_tracker">Your Weekly Minutes Meditated</string>
+    <string name="title_food_tracker">Track Today\'s Food Intake</string>
+    <string name="title_weekly_food_tracker">Your Weekly Food Intake</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
-    <string name="companion_head_decorator">Head Decorator</string>
-    <string name="companion_face_decorator">Face Decorator</string>
-
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
     <string-array name="water_array">
         <item>Default</item>
-        <item>&lt;1 L</item>
-        <item>1 L-3 L</item>
-        <item>3 L-6 L</item>
-        <item>6 L-9 L</item>
-        <item>9 L+</item>
+        <item>&lt;500 ml</item>
+        <item>500 ml-1000 ml</item>
+        <item>1000 ml-1500 ml</item>
+        <item>1500 ml-2000 ml</item>
+        <item>2000 ml+</item>
     </string-array>
     <string-array name="sleep_array">
         <item>Default</item>
@@ -45,36 +52,36 @@
     </string-array>
     <string-array name="meditation_array">
         <item>Default</item>
-        <item>&lt;1 hrs</item>
-        <item>1-2 hrs</item>
-        <item>2-3 hrs</item>
-        <item>3-4 hrs</item>
-        <item>4-5 hrs</item>
-        <item>5-6 hrs</item>
-        <item>6-7 hrs</item>
-        <item>7 hrs+</item>
+        <item>&lt;5 mins</item>
+        <item>5-10 mins</item>
+        <item>10-15 mins</item>
+        <item>15-20 mins</item>
+        <item>20-25 mins</item>
+        <item>25-30 mins</item>
+        <item>30-45 mins</item>
+        <item>45 mins+</item>
     </string-array>
     <string-array name="exercise_array">
         <item>Default</item>
-        <item>&lt;1 hrs</item>
-        <item>1-2 hrs</item>
-        <item>2-3 hrs</item>
-        <item>3-4 hrs</item>
-        <item>4-5 hrs</item>
-        <item>5-6 hrs</item>
-        <item>6-7 hrs</item>
-        <item>7 hrs+</item>
+        <item>&lt;15 mins</item>
+        <item>15-30 mins</item>
+        <item>30-45 mins</item>
+        <item>45-60 mins</item>
+        <item>75-90 mins</item>
+        <item>90-105 mins</item>
+        <item>105-120 mins</item>
+        <item>120 mins+</item>
     </string-array>
     <string-array name="food_array">
         <item>Default</item>
         <item>&lt;500 Calories</item>
-        <item>500-700 Calories</item>
-        <item>700-900 Calories</item>
-        <item>900-1100 Calories</item>
-        <item>1100-1300 Calories</item>
-        <item>1300-1500 Calories</item>
-        <item>1500-1700 Calories</item>
-        <item>1700 Calories+</item>
+        <item>500-1000 Calories</item>
+        <item>1000-1500 Calories</item>
+        <item>1500-2000 Calories</item>
+        <item>2500-3000 Calories</item>
+        <item>3000-3500 Calories</item>
+        <item>3500-4000 Calories</item>
+        <item>4000 Calories+</item>
     </string-array>
     <string-array name="substance_abuse_array">
         <item>Default</item>
@@ -94,4 +101,13 @@
         <item>Good Evening, </item>
         <item>Good Night, </item>
     </string-array>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="full_name">Full Name</string>
+    <string name="your_information">YOUR INFORMATION</string>
+    <string name="age">age</string>
+    <string name="Age">Age</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="confirm">Confirm</string>
 </resources>

@@ -42,6 +42,115 @@
                 android:paddingLeft="8dp">
 
                 <TextView
+                    android:id="@+id/personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Personal Information"
+                    android:textSize="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="8dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="Age: "/>
+
+                    <TextView
+                        android:id="@+id/valueAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text=" "
+                        android:layout_toEndOf="@+id/textAge"/>
+
+                    <TextView
+                        android:id="@+id/textGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="Gender: "
+                        android:layout_below="@+id/textAge" />
+
+                    <TextView
+                        android:id="@+id/valueGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text=" "
+                        android:layout_below="@+id/textAge"
+                        android:layout_toEndOf="@+id/textGender"/>
+
+                    <TextView
+                        android:id="@+id/textHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="Height: "
+                        android:layout_below="@+id/textGender" />
+
+                    <TextView
+                        android:id="@+id/valueHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text=" "
+                        android:layout_below="@+id/textGender"
+                        android:layout_toEndOf="@+id/textHeight"/>
+
+                    <TextView
+                        android:id="@+id/textWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="Weight: "
+                        android:layout_below="@+id/textHeight" />
+
+                    <TextView
+                        android:id="@+id/valueWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text=" "
+                        android:layout_marginBottom="8dp"
+                        android:layout_below="@+id/textHeight"
+                        android:layout_toEndOf="@+id/textWeight"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btSettingsEditPersonalInformation"
+                        android:layout_width="111dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textAge"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="100dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="9dp"
+                        android:layout_toEndOf="@+id/valueWeight"
+                        android:backgroundTint="@color/black"
+                        android:paddingStart="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="10dp"
+                        android:text="Edit"
+                        app:cornerRadius="10dp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp">
+
+                <TextView
                     android:id="@+id/title_enable_tracker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

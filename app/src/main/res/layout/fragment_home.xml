@@ -149,7 +149,7 @@
                     android:id="@+id/ibCatIcon"
                     android:layout_width="100dp"
                     android:layout_height="87dp"
-                    android:src="@drawable/ic_cat"
+                    android:src="@drawable/cat"
                     android:scaleType="fitCenter"
                     android:background="@null"/>
                 <LinearLayout
@@ -163,7 +163,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Battery:           "
+                            android:text="Battery:               "
                             android:textSize="20sp"
                             android:textColor="@color/white"/>
                         <TextView
@@ -186,13 +186,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wellbeing: "
+                            android:text="Wellbeing:              "
                             android:textSize="20sp"
                             android:textColor="@color/white"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Healthy"
+                            android:text="Ill"
                             android:textSize="20sp"
                             android:textColor="@color/green_600"/>
                         <ImageView

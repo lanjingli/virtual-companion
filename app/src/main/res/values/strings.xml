@@ -22,7 +22,7 @@
     <string name="delete_confirm">Delete this task?</string>
     <string name="delete">Delete</string>
     <string name="close">Close</string>
-    <string name="title_calendar_view">Calendar View</string>
+    <string name="title_calendar_view">Calendar  View</string>
     <string name="calendar_task_input_title">Enter task title</string>
     <string name="calendar_task_input_empty">The field cannot be blank</string>
     <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>

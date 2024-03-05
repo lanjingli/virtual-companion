@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvTask"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:contentPadding="12dp"
+    app:cardBackgroundColor="@color/teal_700"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp">
+    <Button
+        android:id="@+id/btTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Hydrate"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:gravity="left|center_vertical"
+        android:drawableLeft="@drawable/ic_water_empty_48dp"/>
+
+</androidx.cardview.widget.CardView>

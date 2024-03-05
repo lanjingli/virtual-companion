@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -30,6 +31,7 @@ import com.example.ece489acompanionapp.databinding.CalendarDayBinding
 import com.example.ece489acompanionapp.databinding.FragmentCalendarBinding
 import com.example.ece489acompanionapp.databinding.CalendarEventItemViewBinding
 import com.example.ece489acompanionapp.databinding.CalendarHeaderBinding
+import com.example.ece489acompanionapp.ui.companion.CompanionViewModel
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -44,6 +46,8 @@ import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
+
+    private val sharedViewModel: CalendarViewModel by activityViewModels()
 
     private val eventsAdapter = CalendarEventsAdapter {
         AlertDialog.Builder(requireContext())
@@ -103,7 +107,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
-    private val events = mutableMapOf<LocalDate, List<Event>>()
+    //private val events = mutableMapOf<LocalDate, List<Event>>()
 
     private lateinit var binding: FragmentCalendarBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -144,23 +148,33 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 .show()
         } else {
             selectedDate?.let {
-                events[it] =
+                var events = sharedViewModel.getEvents()
+                events?.set(it,
                     events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it))
+                )
                 updateAdapterForDate(it)
+                if (events != null) {
+                    sharedViewModel.setEvents(events)
+                }
             }
         }
     }
 
     private fun deleteEvent(event: Event) {
         val date = event.date
-        events[date] = events[date].orEmpty().minus(event)
+        var events = sharedViewModel.getEvents()
+        events?.set(date, events[date].orEmpty().minus(event))
         updateAdapterForDate(date)
+        if (events != null) {
+            sharedViewModel.setEvents(events)
+        }
     }
 
     private fun updateAdapterForDate(date: LocalDate) {
+        val nonNullEvents: MutableMap<LocalDate, List<Event>> = sharedViewModel.getEvents() ?: mutableMapOf<LocalDate, List<Event>>()
         eventsAdapter.apply {
             events.clear()
-            events.addAll(this@CalendarFragment.events[date].orEmpty())
+            events.addAll(nonNullEvents[date].orEmpty())
             notifyDataSetChanged()
         }
         binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
@@ -214,7 +228,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                         else -> {
                             context?.let { textView.setTextColor(it.getColor(R.color.black)) }
                             textView.background = null
-                            dotView.isVisible = events[data.date].orEmpty().isNotEmpty()
+                            var events = sharedViewModel.getEvents()
+                            dotView.isVisible = events?.get(data.date).orEmpty().isNotEmpty()
                         }
                     }
                 } else {

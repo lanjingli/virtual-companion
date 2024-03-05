@@ -21,6 +21,9 @@
     <string name="title_sleep_tracker">Track Yesterday\'s Hours Slept</string>
     <string name="title_weekly_sleep_tracker">Your Weekly Hours Slept</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
+    <string name="companion_head_decorator">Head Decorator</string>
+    <string name="companion_face_decorator">Face Decorator</string>
+
     <string-array name="water_array">
         <item>Default</item>
         <item>&lt;1 L</item>

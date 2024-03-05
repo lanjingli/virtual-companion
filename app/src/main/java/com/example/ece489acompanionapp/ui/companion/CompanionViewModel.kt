@@ -10,4 +10,28 @@ class CompanionViewModel : ViewModel() {
         value = "This is companion Fragment"
     }
     val text: LiveData<String> = _text
+
+    private val _headDecorator= MutableLiveData<String>().apply {
+        value = "Default"
+    }
+
+    private val _faceDecorator= MutableLiveData<String>().apply {
+        value = "Default"
+    }
+
+    fun saveHeadDecoratorSelected(position: String) {
+        _headDecorator.value = position
+    }
+
+    fun getHeadDecoratorSelected(): String? {
+        return _headDecorator.value
+    }
+
+    fun saveFaceDecoratorSelected(position: String) {
+        _faceDecorator.value = position
+    }
+
+    fun getFaceDecoratorSelected(): String? {
+        return _faceDecorator.value
+    }
 }

@@ -117,102 +117,101 @@
                 android:progressTint="#53ed58"
                 android:progress="25"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_sounds"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/reward_progress_bar"
-                app:layout_constraintStart_toStartOf="parent"
-                card_view:cardBackgroundColor="#F0F7F7"
-                card_view:cardUseCompatPadding="true"
-                card_view:cardCornerRadius="6dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/card_sounds"-->
+<!--                xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/reward_progress_bar"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                card_view:cardBackgroundColor="#F0F7F7"-->
+<!--                card_view:cardUseCompatPadding="true"-->
+<!--                card_view:cardCornerRadius="6dp">-->
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:padding="16dp"
-                    android:divider="?android:listDivider"
-                    android:dividerPadding="2.5dp"
-                    android:showDividers="middle"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:divider="?android:listDivider"-->
+<!--                    android:dividerPadding="2.5dp"-->
+<!--                    android:showDividers="middle"-->
+<!--                    android:orientation="vertical">-->
 
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/title_reminder_sound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Reminder Sound"
-                            android:layout_weight="1"
-                            android:textSize="20dp" />
-                        <ImageView
-                            android:id="@+id/right_arrow_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="4dp"
-                            android:layout_gravity="right"
-                            android:src="@drawable/ic_arrow_right_24"
-                            app:layout_constraintEnd_toEndOf="parent" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/title_angry_sound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Angry Sound"
-                            android:layout_weight="1"
-                            android:textSize="20dp" />
-                        <ImageView
-                            android:id="@+id/right_arrow_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="4dp"
-                            android:layout_gravity="right"
-                            android:src="@drawable/ic_arrow_right_24"
-                            app:layout_constraintEnd_toEndOf="parent" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="4dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/title_happy_sound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Happy Sound"
-                            android:layout_weight="1"
-                            android:textSize="20dp" />
-                        <ImageView
-                            android:id="@+id/right_arrow_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="4dp"
-                            android:layout_gravity="right"
-                            android:src="@drawable/ic_arrow_right_24"
-                            app:layout_constraintEnd_toEndOf="parent" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingBottom="4dp"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/title_reminder_sound"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Reminder Sound"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textSize="20dp" />-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/right_arrow_1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingTop="4dp"-->
+<!--                            android:layout_gravity="right"-->
+<!--                            android:src="@drawable/ic_arrow_right_24"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent" />-->
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingTop="4dp"-->
+<!--                        android:paddingBottom="4dp"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/title_angry_sound"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Angry Sound"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textSize="20dp" />-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/right_arrow_2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingTop="4dp"-->
+<!--                            android:layout_gravity="right"-->
+<!--                            android:src="@drawable/ic_arrow_right_24"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent" />-->
+<!--                    </LinearLayout>-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingTop="4dp"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        android:orientation="horizontal">-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/title_happy_sound"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Happy Sound"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:textSize="20dp" />-->
+<!--                        <ImageView-->
+<!--                            android:id="@+id/right_arrow_3"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:paddingTop="4dp"-->
+<!--                            android:layout_gravity="right"-->
+<!--                            android:src="@drawable/ic_arrow_right_24"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_decorator"
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -235,11 +234,14 @@
                     android:dividerPadding="2.5dp"
                     android:showDividers="middle"
                     android:orientation="vertical">
+
                     <LinearLayout
+                        android:id="@+id/head_decorator_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
                         app:layout_constraintStart_toStartOf="parent"
+                        android:clickable="true"
                         android:orientation="horizontal">
                         <TextView
                             android:id="@+id/title_head_decorator"
@@ -257,15 +259,17 @@
                             android:src="@drawable/ic_arrow_right_24"
                             app:layout_constraintEnd_toEndOf="parent" />
                     </LinearLayout>
+
                     <LinearLayout
+                        android:id="@+id/face_decorator_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="8dp"
-
+                        android:clickable="true"
                         app:layout_constraintStart_toStartOf="parent"
                         android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/title_facial_decorators"
+                            android:id="@+id/title_face_decorator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Facial Decorators"

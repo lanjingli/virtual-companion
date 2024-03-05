@@ -68,7 +68,34 @@
         android:id="@+id/navigation_companion"
         android:name="com.example.ece489acompanionapp.ui.companion.CompanionFragment"
         android:label="@string/title_companion"
-        tools:layout="@layout/fragment_companion" />
+        tools:layout="@layout/fragment_companion" >
+        <action
+            android:id="@+id/action_navigation_companion_to_companion_head_decoration"
+            app:destination="@id/companion_head_decoration" />
+        <action
+            android:id="@+id/action_navigation_companion_to_companion_face_decoration"
+            app:destination="@id/companion_face_decoration" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/companion_head_decoration"
+        android:name="com.example.ece489acompanionapp.ui.companion.HeadDecoratorFragment"
+        android:label="@string/companion_head_decorator"
+        tools:layout="@layout/fragment_companion_head_decorator" >
+        <action
+            android:id="@+id/action_companion_head_decoration_to_navigation_companion"
+            app:destination="@id/navigation_companion" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/companion_face_decoration"
+        android:name="com.example.ece489acompanionapp.ui.companion.FaceDecoratorFragment"
+        android:label="@string/companion_face_decorator"
+        tools:layout="@layout/fragment_companion_face_decorator" >
+        <action
+            android:id="@+id/action_companion_face_decoration_to_navigation_companion"
+            app:destination="@id/navigation_companion" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_settings"

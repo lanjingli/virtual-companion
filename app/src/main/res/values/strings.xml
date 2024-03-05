@@ -26,6 +26,11 @@
     <string name="title_food_tracker">Track Today\'s Food Intake</string>
     <string name="title_weekly_food_tracker">Your Weekly Food Intake</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
     <string-array name="water_array">
         <item>Default</item>
         <item>&lt;1 L</item>
@@ -96,4 +101,13 @@
         <item>Good Evening, </item>
         <item>Good Night, </item>
     </string-array>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="full_name">Full Name</string>
+    <string name="your_information">YOUR INFORMATION</string>
+    <string name="age">age</string>
+    <string name="Age">Age</string>
+    <string name="height_cm">Height (cm)</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="confirm">Confirm</string>
 </resources>

@@ -54,9 +54,9 @@
         android:id="@+id/abCalendarAddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_gravity="right|center_vertical"
         android:layout_margin="20dp"
         app:tint="@color/white"
-        app:backgroundTint="@color/purple_200"
-        app:srcCompat="@drawable/ic_arrow_right_24" />
+        app:backgroundTint="@color/design_default_color_primary"
+        app:srcCompat="@drawable/ic_add"/>
 </FrameLayout>

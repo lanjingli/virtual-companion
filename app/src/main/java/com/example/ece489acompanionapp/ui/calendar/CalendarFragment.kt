@@ -45,30 +45,6 @@ import java.util.UUID
 
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
-//    private var _binding: FragmentCalendarBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-//    private val binding get() = _binding!!
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        val dashboardViewModel =
-//            ViewModelProvider(this).get(CalendarViewModel::class.java)
-//
-//        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
-//        val root: View = binding.root
-//
-//        val textView: TextView = binding.textCalendar
-//        dashboardViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-//        return root
-//    }
-
     private val eventsAdapter = CalendarEventsAdapter {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.delete_confirm)
@@ -129,13 +105,9 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
-//    private val activityToolbar: Toolbar
-//        get() = (requireActivity() as CalendarViewActivity).binding.activityToolbar
-
     private lateinit var binding: FragmentCalendarBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        addStatusBarColorUpdate(R.color.green_400)
         binding = FragmentCalendarBinding.bind(view)
         binding.exThreeRv.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -144,11 +116,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         }
 
         binding.exThreeCalendar.monthScrollListener = {
-//            activityToolbar.title = if (it.yearMonth.year == today.year) {
-//                titleSameYearFormatter.format(it.yearMonth)
-//            } else {
-//                titleFormatter.format(it.yearMonth)
-//            }
+
             // Select the first day of the visible month.
             selectDate(it.yearMonth.atDay(1))
         }
@@ -234,13 +202,13 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                     textView.visibility = View.VISIBLE
                     when (data.date) {
                         today -> {
-                            context?.let { textView.setTextColor(it.getColor(R.color.purple_200)) }
+                            context?.let { textView.setTextColor(it.getColor(R.color.white)) }
                             textView.setBackgroundResource(R.drawable.ic_oval)
                             dotView.visibility = View.INVISIBLE
                         }
                         selectedDate -> {
-                            context?.let { textView.setTextColor(it.getColor(R.color.orange_300)) }
-                            textView.setBackgroundResource(R.drawable.ic_oval)
+                            context?.let { textView.setTextColor(it.getColor(androidx.appcompat.R.color.primary_text_default_material_dark)) }
+                            textView.setBackgroundResource(R.drawable.ic_oval_alt)
                             dotView.visibility = View.INVISIBLE
                         }
                         else -> {
@@ -275,11 +243,6 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 }
             }
     }
-
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        _binding = null
-//    }
 }
 
 data class Event(val id: String, val text: String, val date: LocalDate)

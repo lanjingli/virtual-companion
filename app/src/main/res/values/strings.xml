@@ -25,6 +25,8 @@
     <string name="title_weekly_meditation_tracker">Your Weekly Minutes Meditated</string>
     <string name="title_food_tracker">Track Today\'s Food Intake</string>
     <string name="title_weekly_food_tracker">Your Weekly Food Intake</string>
+    <string name="companion_face_decorator">Companion Face Decorator</string>
+    <string name="companion_head_decorator">Companion Head Decorator</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
     <string-array name="gender_array">
         <item>Male</item>

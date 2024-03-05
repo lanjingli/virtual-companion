@@ -293,6 +293,15 @@
             </TableRow>
         </TableLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="5 pts awarded upon recommendation completion"
+            app:layout_constraintTop_toBottomOf="@+id/table2" />
+
         <Button
             android:id="@+id/sleep_tracker_save_button"
             android:layout_width="match_parent"

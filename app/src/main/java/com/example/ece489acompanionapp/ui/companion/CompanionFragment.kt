@@ -1,7 +1,11 @@
 package com.example.ece489acompanionapp.ui.companion
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +15,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentCompanionBinding
+import com.example.ece489acompanionapp.ui.tracker.TrackerViewModel
+import khttp.post
+
 
 class CompanionFragment : Fragment(0) {
 
     private var _binding: FragmentCompanionBinding? = null
     private val sharedViewModel: CompanionViewModel by activityViewModels()
+    private val trackerViewModel: TrackerViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -85,7 +93,8 @@ class CompanionFragment : Fragment(0) {
         companionImageView.setImageResource(decoToImage[key]!!)
 
         // TODO: get user points from database
-        val userPoint = 23
+        var userPoint = trackerViewModel.getTotalPoints()!!
+
         val tmpMap = pointToDeco.filterKeys { it > userPoint }
         val keyList = tmpMap.keys.toList()
         val goalKey = keyList[0]
@@ -95,27 +104,52 @@ class CompanionFragment : Fragment(0) {
         binding.textProgress.text = "$userPoint pts"
         binding.textProgressGoal.text = "You need $toReachGoal points to unlock $goalValue"
 
-
         // TODO: track user goal completion consecutive days
-        val missedGoalDays = 3
+        val numRecMet = trackerViewModel.getNumRecomMet()!!
         val companionProgressTextView = binding.textCompanionProgress
+        var mood = "HAPPY"
         if (container!=null) {
             val healthyColor = ContextCompat.getColor(container.getContext(), R.color.green_400)
             val ickColor = ContextCompat.getColor(container.getContext(), R.color.orange_300)
             val sickColor = ContextCompat.getColor(container.getContext(), R.color.red_10)
-            if (missedGoalDays <= 2) {
-                companionImageView.setBackgroundColor(healthyColor)
-                companionProgressTextView.text = "Your companion is currently health\nKeep up the good work!"
-                companionProgressTextView.setTextColor(healthyColor)
-            } else if (missedGoalDays <= 6) {
-                companionImageView.setBackgroundColor((ickColor))
-                companionProgressTextView.text = "Your companion is starting to feel ill\nLet's try to reach our goal tomorrow!"
-                companionProgressTextView.setTextColor(ickColor)
-            } else {
+            if (numRecMet <= 1) {
                 companionImageView.setBackgroundColor((sickColor))
-                companionProgressTextView.text = "Your companion is very sick\nWe will definitely reach our goal tomorrow!"
+                companionProgressTextView.text = "Your companion isn't feeling well today\nTry to start working on your goals today!"
                 companionProgressTextView.setTextColor(sickColor)
+                //TODO: send POST req for angry mood
+                mood = "ANGRY"
+            } else if (numRecMet <= 2) {
+                companionImageView.setBackgroundColor((ickColor))
+                companionProgressTextView.text = "Your companion is starting to feel a bit better\nLet's keep working on our goals!"
+                companionProgressTextView.setTextColor(ickColor)
+                //TODO: send POST req for sick mood
+                mood = "SICK"
+            } else {
+                companionImageView.setBackgroundColor(healthyColor)
+                companionProgressTextView.text = "Your companion is currently very happy\nKeep up the good work!"
+                companionProgressTextView.setTextColor(healthyColor)
+                //TODO: send POST req for happy mood
+                mood = "HAPPY"
             }
+        }
+
+        binding.updatePetButton.setOnClickListener {
+            val SDK_INT = Build.VERSION.SDK_INT
+            if (SDK_INT > 8) {
+                val policy = ThreadPolicy.Builder()
+                    .permitAll().build()
+                StrictMode.setThreadPolicy(policy)
+                //your codes here
+                val response = post(url = "https://192.168.4.1/",
+                    json = mapOf("mood" to mood))
+
+                if(response.statusCode == 200) {
+                    showPopupMessage("Update successful")
+                } else {
+                    showPopupMessage("Something went wrong. Please try again later")
+                }
+            }
+
         }
 
         val root: View = binding.root
@@ -141,6 +175,18 @@ class CompanionFragment : Fragment(0) {
 
     fun goToFaceDecoratorScreen() {
         findNavController().navigate(R.id.action_navigation_companion_to_companion_face_decoration)
+    }
+
+    private fun showPopupMessage(message: String) {
+        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setTitle("Connection To Pet")
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 
     override fun onDestroyView() {

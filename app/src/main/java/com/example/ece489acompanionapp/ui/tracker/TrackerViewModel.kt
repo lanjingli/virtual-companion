@@ -55,6 +55,21 @@ class TrackerViewModel : ViewModel() {
 
     val text: LiveData<String> = _text
 
+    private val _recomMet: MutableLiveData<MutableMap<String, Boolean>> by lazy {
+        MutableLiveData<MutableMap<String, Boolean>>().apply {
+            value = mutableMapOf(
+                "water" to false,
+                "sleep" to false,
+                "meditation" to false,
+                "exercise" to false,
+                "food" to false,
+                "subAbuse" to false
+            )
+        }
+    }
+
+    private val _totalPoints = MutableLiveData<Int>(0)
+
     fun setWaterIsFull(ind: Int, isFull: Boolean) {
         //val cur = _water.value?.get(ind)
         _water.value?.set(ind, isFull)
@@ -141,6 +156,32 @@ class TrackerViewModel : ViewModel() {
             }
         }
         _curFoodIntake.value = count
+    }
+
+    fun setRecomMet(tracker: String, isMet :Boolean) {
+        _recomMet.value?.set(tracker, isMet)
+    }
+
+    fun getRecomMet(key: String): Boolean? {
+        return _recomMet.value?.get(key)
+    }
+
+    fun getNumRecomMet(): Int? {
+        var recMet = 0
+        _recomMet.value?.forEach { (_, isMet) ->
+            if (isMet) {
+                recMet+=1
+            }
+        }
+        return recMet
+    }
+
+    fun setTotalPoints(pointsToAdd: Int) {
+        _totalPoints.value = _totalPoints.value?.plus(pointsToAdd)
+    }
+
+    fun getTotalPoints(): Int? {
+        return _totalPoints.value
     }
 
 }

@@ -268,7 +268,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Recommended Water Intake"
+                    android:text="Recommended"
                     android:gravity="center"
                     android:textColor="@color/black"/>
 
@@ -289,7 +289,7 @@
             android:paddingStart="8dp"
             android:paddingTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="5 pts awarded upon recommendation completion"
+            android:text="10 pts awarded upon recommendation completion"
             app:layout_constraintTop_toBottomOf="@+id/table2" />
 
         <Button

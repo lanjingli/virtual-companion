@@ -15,10 +15,12 @@ import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerExerciseBinding
 import com.example.ece489acompanionapp.databinding.FragmentTrackerMeditationBinding
 import com.example.ece489acompanionapp.ui.calendar.MeditationTrackerViewModel
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class MeditationTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerMeditationBinding? = null
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -52,6 +54,10 @@ class MeditationTrackerFragment : Fragment() {
         binding?.apply {
             val meditationMins = countFilledMeditation()
             txtTodayMeditation.text = formatMeditationMins(meditationMins)
+            val customMeditationSelection = getGoalMessage()
+            if (customMeditationSelection != "") {
+                txtRecommendedMeditation.text = customMeditationSelection
+            }
         }
 
         binding?.apply {
@@ -199,13 +205,14 @@ class MeditationTrackerFragment : Fragment() {
                 meditationTrackerSaveButton.setOnClickListener {
                     val meditationMins = countFilledMeditation()
                     txtTodayMeditation.text = formatMeditationMins(meditationMins)
-                    val recommendedMinsInt = txtRecommendedMeditation.text.split(" ")[0].toInt()
-                    val isRecommendedMet = meditationMins >= recommendedMinsInt
-                    if (isRecommendedMet) {
-                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended meditation goal.")
+                    val low = getGoalRange()
+                    if (meditationMins >= low) {
+                        val addPointsMsg = addPointsAndGenMessage(10)
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended meditation goal.$addPointsMsg")
                     } else {
                         showPopupMessage("Keep it up! Meditate some more to reach the recommended goal.")
                     }
+                    goBackToTrackerScreen()
                 }
             }
         }
@@ -292,6 +299,47 @@ class MeditationTrackerFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getGoalRange(): Int {
+        var curGoal: String = binding.txtRecommendedMeditation.text.toString()
+
+        var low = if (curGoal.contains("<")) {
+            1
+        } else if (curGoal.contains("+")) {
+            curGoal.split(" ")[0].toInt()
+        } else if (curGoal.contains("-")) {
+            curGoal.split(" ")[0].split("-")[0].toInt()
+        } else {
+            curGoal.split(" ")[0].toInt()
+        }
+        return low
+    }
+
+    private fun getGoalMessage(): String {
+        val isGoalSet = settingsViewModel.getCustomMeditationSelected()
+
+        var message = ""
+        if (isGoalSet != "Default") {
+            message = isGoalSet!!
+        }
+
+        return message
+    }
+
+    private fun addPointsAndGenMessage(points: Int): String? {
+        val isRecomMet = sharedViewModel.getRecomMet("meditation")
+
+        var message = if (isRecomMet == false) {
+            sharedViewModel.setTotalPoints(points)
+            sharedViewModel.setRecomMet("meditation", true)
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+10 Points.\nTotal points: $totalPoints"
+        } else {
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+0 Points, today's points have already been awarded.\nTotal points: $totalPoints"
+        }
+        return message
     }
 
     override fun onDestroyView() {

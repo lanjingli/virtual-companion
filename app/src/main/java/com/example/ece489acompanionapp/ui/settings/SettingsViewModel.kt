@@ -28,6 +28,18 @@ class SettingsViewModel : ViewModel() {
     private val _substanceAbuseTrackerEnabled = MutableLiveData<Boolean>(true)
     val substanceAbuseTrackerEnabled: LiveData<Boolean> = _substanceAbuseTrackerEnabled
 
+    private val _customWaterSelected = MutableLiveData<String>("Default")
+
+    private val _customSleepSelected = MutableLiveData<String>("Default")
+
+    private val _customMeditationSelected = MutableLiveData<String>("Default")
+
+    private val _customExerciseSelected = MutableLiveData<String>("Default")
+
+    private val _customFoodSelected = MutableLiveData<String>("Default")
+
+    private val _customSubAbuseSelected = MutableLiveData<String>("Default")
+
     fun setWaterTrackerEnabled(waterTrackerEnabled: Boolean) {
         _waterTrackerEnabled.value = waterTrackerEnabled
     }
@@ -41,7 +53,7 @@ class SettingsViewModel : ViewModel() {
     }
 
     fun getSleepTrackerEnabled(): Boolean? {
-        return _waterTrackerEnabled.value
+        return _sleepTrackerEnabled.value
     }
 
     fun setMeditationTrackerEnabled(meditationTrackerEnabled: Boolean) {
@@ -74,6 +86,54 @@ class SettingsViewModel : ViewModel() {
 
     fun getSubstanceAbuseTrackerEnabled(): Boolean? {
         return _substanceAbuseTrackerEnabled.value
+    }
+
+    fun setCustomWaterSelected(selected: String) {
+        _customWaterSelected.value = selected
+    }
+
+    fun getCustomWaterSelected(): String? {
+        return _customWaterSelected.value
+    }
+
+    fun setCustomSleepSelected(selected: String) {
+        _customSleepSelected.value = selected
+    }
+
+    fun getCustomSleepSelected(): String? {
+        return _customSleepSelected.value
+    }
+
+    fun setCustomMeditationSelected(selected: String) {
+        _customMeditationSelected.value = selected
+    }
+
+    fun getCustomMeditationSelected(): String? {
+        return _customMeditationSelected.value
+    }
+
+    fun setCustomExerciseSelected(selected: String) {
+        _customExerciseSelected.value = selected
+    }
+
+    fun getCustomExerciseSelected(): String? {
+        return _customExerciseSelected.value
+    }
+
+    fun setCustomFoodSelected(selected: String) {
+        _customFoodSelected.value = selected
+    }
+
+    fun getCustomFoodSelected(): String? {
+        return _customFoodSelected.value
+    }
+
+    fun setCustomSubAbuseSelected(selected: String) {
+        _customSubAbuseSelected.value = selected
+    }
+
+    fun getCustomSubAbuseSelected(): String? {
+        return _customSubAbuseSelected.value
     }
 
 }

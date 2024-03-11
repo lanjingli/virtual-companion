@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerWaterBinding
-import android.content.pm.PackageManager
-import android.net.Uri
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class WaterTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerWaterBinding? = null
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -52,9 +52,7 @@ class WaterTrackerFragment : Fragment() {
         binding?.apply {
             val waterLiters = countFilledCups()
             txtTodayWater.text = formatWatermilliLiters(waterLiters)
-            val age = infoViewModel.getAge()
-            val gender = infoViewModel.getGender()
-            txtRecommendedWater.text = formatWatermilliLiters(getRecommendedWater(age, gender))
+            txtRecommendedWater.text = getGoalMessage()
         }
 
         binding?.apply {
@@ -203,13 +201,14 @@ class WaterTrackerFragment : Fragment() {
                 waterTrackerSaveButton.setOnClickListener {
                     val watermilliLiters = countFilledCups()
                     txtTodayWater.text = formatWatermilliLiters(watermilliLiters)
-                    val recommendedmilliLitersInt = txtRecommendedWater.text.split(" ")[0].toInt()
-                    val isRecommendedMet = watermilliLiters >= recommendedmilliLitersInt
-                    if (isRecommendedMet) {
-                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended water intake goal.")
+                    val low = getGoalRange()
+                    if (watermilliLiters >= low) {
+                        val addPointsMsg = addPointsAndGenMessage(10)
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended water intake goal.$addPointsMsg")
                     } else {
                         showPopupMessage("Keep it up! Drink more water to reach the recommended goal.")
                     }
+                    goBackToTrackerScreen()
                 }
             }
         }
@@ -322,6 +321,49 @@ class WaterTrackerFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getGoalRange(): Int {
+        var curGoal: String = binding.txtRecommendedWater.text.toString()
+
+        var low = if (curGoal.contains("<")) {
+            1
+        } else if (curGoal.contains("+")) {
+            curGoal.split(" ")[0].toInt()
+        } else if (curGoal.contains("-")) {
+            curGoal.split(" ")[0].split("-")[0].toInt()
+        } else {
+            curGoal.split(" ")[0].toInt()
+        }
+        return low
+    }
+
+    private fun getGoalMessage(): String {
+        val isGoalSet = settingsViewModel.getCustomWaterSelected()
+        var message = if (isGoalSet == "Default") {
+            //not been set, default
+            val age = infoViewModel.getAge()
+            val gender = infoViewModel.getGender()
+            formatWatermilliLiters(getRecommendedWater(age, gender))
+        } else {
+            isGoalSet!!
+        }
+        return message
+    }
+
+    private fun addPointsAndGenMessage(points: Int): String? {
+        val isRecomMet = sharedViewModel.getRecomMet("water")
+
+        var message = if (isRecomMet == false) {
+            sharedViewModel.setTotalPoints(points)
+            sharedViewModel.setRecomMet("water", true)
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+10 Points.\nTotal points: $totalPoints"
+        } else {
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+0 Points, today's points have already been awarded.\nTotal points: $totalPoints"
+        }
+        return message
     }
 
     override fun onDestroyView() {

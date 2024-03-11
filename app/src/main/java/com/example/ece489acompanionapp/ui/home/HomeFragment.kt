@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentHomeBinding
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
-import com.example.ece489acompanionapp.ui.tracker.TrackerFragment
+import com.example.ece489acompanionapp.ui.tracker.TrackerViewModel
 import java.time.LocalDateTime
 
 class HomeFragment : Fragment() {
@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
 
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
+    private val trackerViewModel: TrackerViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -58,6 +59,20 @@ class HomeFragment : Fragment() {
             currentUserName = infoViewModel.getName().toString()
         }
         textView.text = greeting + " " + currentUserName
+
+        //TODO: customize battery level text
+
+        val numRecMet = trackerViewModel.getNumRecomMet()!!
+        var mood = if (numRecMet <= 1) {
+            "Angry"
+        } else if (numRecMet <= 2) {
+            "Ick"
+        } else {
+            "Happy"
+        }
+
+        binding.moodText.text = mood
+        binding.pointsText.text = trackerViewModel.getTotalPoints().toString()
 
         return root
     }

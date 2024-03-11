@@ -75,9 +75,45 @@ class SettingsFragment : Fragment() {
             }
 
             waterSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                var str = ""
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    str = parent?.getItemAtPosition(position).toString()
+                    val str = parent?.getItemAtPosition(position).toString()
+                    sharedViewModel.setCustomWaterSelected(str)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+
+            sleepSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val str = parent?.getItemAtPosition(position).toString()
+                    sharedViewModel.setCustomSleepSelected(str)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+
+            meditationSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val str = parent?.getItemAtPosition(position).toString()
+                    sharedViewModel.setCustomMeditationSelected(str)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+
+            exerciseSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val str = parent?.getItemAtPosition(position).toString()
+                    sharedViewModel.setCustomExerciseSelected(str)
+                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+
+            foodSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val str = parent?.getItemAtPosition(position).toString()
+                    sharedViewModel.setCustomFoodSelected(str)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }

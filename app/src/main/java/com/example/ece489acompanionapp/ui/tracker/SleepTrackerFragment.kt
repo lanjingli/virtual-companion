@@ -13,12 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerSleepBinding
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class SleepTrackerFragment : Fragment() {
 
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerSleepBinding? = null
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -51,8 +53,7 @@ class SleepTrackerFragment : Fragment() {
         binding?.apply {
             val hoursSlept = countFilledBeds()
             txtTodaySleep.text = formatSleepHours(hoursSlept)
-            val age = infoViewModel.getAge()
-            txtRecommendedSleep.text = formatSleepHours(getRecommendedSleep(age))
+            txtRecommendedSleep.text = getGoalMessage()
         }
 
         binding?.apply {
@@ -202,13 +203,14 @@ class SleepTrackerFragment : Fragment() {
             sleepTrackerSaveButton.setOnClickListener {
                 val sleepHours = countFilledBeds()
                 txtTodaySleep.text = formatSleepHours(sleepHours)
-                val recommendedHoursInt = txtRecommendedSleep.text.split(" ")[0].toInt()
-                val isRecommendedMet = sleepHours >= recommendedHoursInt
-                if (isRecommendedMet) {
-                    showPopupMessageWithShare("Great job! You have met or exceeded the recommended sleep goal.")
+                val low = getGoalRange()
+                if (sleepHours >= low) {
+                    val addPointsMsg = addPointsAndGenMessage(10)
+                    showPopupMessageWithShare("Great job! You have met or exceeded the recommended sleep goal.$addPointsMsg")
                 } else {
                     showPopupMessage("It's Ok! Try to get more sleep tonight to reach your sleep goal tomorrow.")
                 }
+                goBackToTrackerScreen()
             }
         }
     }
@@ -318,6 +320,48 @@ class SleepTrackerFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getGoalRange(): Int {
+        var curGoal: String = binding.txtRecommendedSleep.text.toString()
+
+        var low = if (curGoal.contains("<")) {
+            1
+        } else if (curGoal.contains("+")) {
+            curGoal.split(" ")[0].toInt()
+        } else if (curGoal.contains("-")) {
+            curGoal.split(" ")[0].split("-")[0].toInt()
+        } else {
+            curGoal.split(" ")[0].toInt()
+        }
+        return low
+    }
+
+    private fun getGoalMessage(): String {
+        val isGoalSet = settingsViewModel.getCustomSleepSelected()
+        var message = if (isGoalSet == "Default") {
+            //not been set, default
+            val age = infoViewModel.getAge()
+            formatSleepHours(getRecommendedSleep(age))
+        } else {
+            isGoalSet!!
+        }
+        return message
+    }
+
+    private fun addPointsAndGenMessage(points: Int): String? {
+        val isRecomMet = sharedViewModel.getRecomMet("sleep")
+
+        var message = if (isRecomMet == false) {
+            sharedViewModel.setTotalPoints(points)
+            sharedViewModel.setRecomMet("sleep", true)
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+10 Points.\nTotal points: $totalPoints"
+        } else {
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+0 Points, today's points have already been awarded.\nTotal points: $totalPoints"
+        }
+        return message
     }
 
     override fun onDestroyView() {

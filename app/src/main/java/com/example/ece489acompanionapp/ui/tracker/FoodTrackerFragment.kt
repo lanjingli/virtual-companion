@@ -15,11 +15,13 @@ import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentTrackerFoodBinding
 import com.example.ece489acompanionapp.ui.calendar.FoodTrackerViewModel
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class FoodTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerFoodBinding? = null
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -53,9 +55,7 @@ class FoodTrackerFragment : Fragment() {
         binding?.apply {
             val foodCalories = countFilledBurgers()
             txtTodayFood.text = formatFoodCalories(foodCalories)
-            val age = infoViewModel.getAge()
-            val gender = infoViewModel.getGender()
-            txtRecommendedFood.text = formatFoodCalories(getRecommendedFood(age, gender))
+            txtRecommendedFood.text = getGoalMessage()
         }
 
         binding?.apply {
@@ -203,13 +203,14 @@ class FoodTrackerFragment : Fragment() {
                 foodTrackerSaveButton.setOnClickListener {
                     val foodCalories = countFilledBurgers()
                     txtTodayFood.text = formatFoodCalories(foodCalories)
-                    val recommendedCaloriesInt = txtRecommendedFood.text.split(" ")[0].toInt()
-                    val isRecommendedMet = foodCalories >= recommendedCaloriesInt
-                    if (isRecommendedMet) {
-                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended food intake goal.")
+                    val low = getGoalRange()
+                    if (foodCalories >= low) {
+                        val addPointsMsg = addPointsAndGenMessage(10)
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended food intake goal.$addPointsMsg")
                     } else {
                         showPopupMessage("Keep it up! Eat some more to reach the recommended goal.")
                     }
+                    goBackToTrackerScreen()
                 }
             }
         }
@@ -332,6 +333,49 @@ class FoodTrackerFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getGoalRange(): Int {
+        var curGoal: String = binding.txtRecommendedFood.text.toString()
+
+        var low = if (curGoal.contains("<")) {
+            1
+        } else if (curGoal.contains("+")) {
+            curGoal.split(" ")[0].toInt()
+        } else if (curGoal.contains("-")) {
+            curGoal.split(" ")[0].split("-")[0].toInt()
+        } else {
+            curGoal.split(" ")[0].toInt()
+        }
+        return low
+    }
+
+    private fun getGoalMessage(): String {
+        val isGoalSet = settingsViewModel.getCustomFoodSelected()
+        var message = if (isGoalSet == "Default") {
+            //not been set, default
+            val age = infoViewModel.getAge()
+            val gender = infoViewModel.getGender()
+            formatFoodCalories(getRecommendedFood(age, gender))
+        } else {
+            isGoalSet!!
+        }
+        return message
+    }
+
+    private fun addPointsAndGenMessage(points: Int): String? {
+        val isRecomMet = sharedViewModel.getRecomMet("food")
+
+        var message = if (isRecomMet == false) {
+            sharedViewModel.setTotalPoints(points)
+            sharedViewModel.setRecomMet("food", true)
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+10 Points.\nTotal points: $totalPoints"
+        } else {
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+0 Points, today's points have already been awarded.\nTotal points: $totalPoints"
+        }
+        return message
     }
 
     override fun onDestroyView() {

@@ -15,11 +15,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 
 class ExerciseTrackerFragment : Fragment() {
     private val sharedViewModel: TrackerViewModel by activityViewModels()
     private var _binding: FragmentTrackerExerciseBinding? = null
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -53,8 +55,7 @@ class ExerciseTrackerFragment : Fragment() {
         binding?.apply {
             val exerciseMinutes = countFilledDumbells()
             txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
-            val age = infoViewModel.getAge()
-            txtRecommendedExercise.text = formatExerciseMinutes(getRecommendedExercise(age))
+            txtRecommendedExercise.text = getGoalMessage()
         }
 
         binding?.apply {
@@ -203,13 +204,14 @@ class ExerciseTrackerFragment : Fragment() {
                 exerciseTrackerSaveButton.setOnClickListener {
                     val exerciseMinutes = countFilledDumbells()
                     txtTodayExercise.text = formatExerciseMinutes(exerciseMinutes)
-                    val recommendedMinutesInt = txtRecommendedExercise.text.split(" ")[0].toInt()
-                    val isRecommendedMet = exerciseMinutes >= recommendedMinutesInt
-                    if (isRecommendedMet) {
-                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended exercise goal.")
+                    val low = getGoalRange()
+                    if (exerciseMinutes >= low) {
+                        val addPointsMsg = addPointsAndGenMessage(10)
+                        showPopupMessageWithShare("Great job! You have met or exceeded the recommended exercise goal.$addPointsMsg")
                     } else {
                         showPopupMessage("Keep it up! Do some more exercise to reach the recommended goal.")
                     }
+                    goBackToTrackerScreen()
                 }
             }
         }
@@ -315,6 +317,48 @@ class ExerciseTrackerFragment : Fragment() {
 
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun getGoalRange(): Int {
+        var curGoal: String = binding.txtRecommendedExercise.text.toString()
+
+        var low = if (curGoal.contains("<")) {
+            1
+        } else if (curGoal.contains("+")) {
+            curGoal.split(" ")[0].toInt()
+        } else if (curGoal.contains("-")) {
+            curGoal.split(" ")[0].split("-")[0].toInt()
+        } else {
+            curGoal.split(" ")[0].toInt()
+        }
+        return low
+    }
+
+    private fun getGoalMessage(): String {
+        val isGoalSet = settingsViewModel.getCustomExerciseSelected()
+        var message = if (isGoalSet == "Default") {
+            //not been set, default
+            val age = infoViewModel.getAge()
+            formatExerciseMinutes(getRecommendedExercise(age))
+        } else {
+            isGoalSet!!
+        }
+        return message
+    }
+
+    private fun addPointsAndGenMessage(points: Int): String? {
+        val isRecomMet = sharedViewModel.getRecomMet("exercise")
+
+        var message = if (isRecomMet == false) {
+            sharedViewModel.setTotalPoints(points)
+            sharedViewModel.setRecomMet("exercise", true)
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+10 Points.\nTotal points: $totalPoints"
+        } else {
+            val totalPoints = sharedViewModel.getTotalPoints()
+            "\n+0 Points, today's points have already been awarded.\nTotal points: $totalPoints"
+        }
+        return message
     }
 
     override fun onDestroyView() {

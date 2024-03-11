@@ -18,6 +18,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvCalendarMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:background="#EEEEEE"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                tools:text="january"/>
+
             <com.kizitonwose.calendar.view.CalendarView
                 android:id="@+id/exThreeCalendar"
                 android:layout_width="match_parent"
@@ -25,21 +38,35 @@
                 app:cv_dayViewResource="@layout/calendar_day"
                 app:cv_monthHeaderResource="@layout/calendar_header" />
 
-            <TextView
-                android:id="@+id/exThreeSelectedDateText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#EEEEEE"
-                android:fontFamily="sans-serif-medium"
-                android:paddingStart="20dp"
-                android:paddingTop="12dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="12dp"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="7 Jan, 2019" />
+                android:orientation="horizontal"
+                android:background="#EEEEEE">
+                <TextView
+                    android:id="@+id/exThreeSelectedDateText"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="12dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    tools:text="7 Jan, 2019" />
+                <Button
+                    android:id="@+id/abCalendarAddButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:drawableEnd="@drawable/ic_add"/>
+<!--                    android:drawableTint="@color/white"/>-->
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exThreeRv"
@@ -50,13 +77,13 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/abCalendarAddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_margin="20dp"
-        app:tint="@color/white"
-        app:backgroundTint="@color/design_default_color_primary"
-        app:srcCompat="@drawable/ic_add"/>
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/abCalendarAddButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="right|center_vertical"-->
+<!--        android:layout_margin="20dp"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@color/design_default_color_primary"-->
+<!--        app:srcCompat="@drawable/ic_add"/>-->
 </FrameLayout>

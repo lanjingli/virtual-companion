@@ -107,6 +107,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+    private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
     //private val events = mutableMapOf<LocalDate, List<Event>>()
 
     private lateinit var binding: FragmentCalendarBinding
@@ -178,6 +179,12 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             notifyDataSetChanged()
         }
         binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
+        binding.tvCalendarMonth.text = monthTitleFormatter.format(date)
+        if (date.compareTo(today) < 0) {
+            binding.abCalendarAddButton.visibility = View.INVISIBLE
+        } else {
+            binding.abCalendarAddButton.visibility = View.VISIBLE
+        }
     }
 
     private fun selectDate(date: LocalDate) {
@@ -226,7 +233,11 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                             dotView.visibility = View.INVISIBLE
                         }
                         else -> {
-                            context?.let { textView.setTextColor(it.getColor(R.color.black)) }
+                            if (today.compareTo(data.date) < 0) {
+                                context?.let { textView.setTextColor(it.getColor(R.color.black))}
+                            } else {
+                                context?.let { textView.setTextColor(it.getColor(R.color.grey_600))}
+                            }
                             textView.background = null
                             var events = sharedViewModel.getEvents()
                             dotView.isVisible = events?.get(data.date).orEmpty().isNotEmpty()
@@ -280,7 +291,7 @@ class CalendarEventsAdapter(val onClick: (Event) -> Unit) :
     inner class CalendarViewHolder(private val binding: CalendarEventItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener {
+            binding.btDeleteEvent.setOnClickListener {
                 onClick(events[bindingAdapterPosition])
             }
         }

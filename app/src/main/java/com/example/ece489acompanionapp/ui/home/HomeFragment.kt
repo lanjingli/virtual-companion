@@ -11,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentHomeBinding
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 import com.example.ece489acompanionapp.ui.tracker.TrackerViewModel
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class HomeFragment : Fragment() {
@@ -80,17 +82,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.apply {
-            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
-        }
-
-        binding?.apply {
-            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
-        }
-
-        binding?.apply {
-            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
-        }
+//        binding?.apply {
+//            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
+//        }
+//
+//        binding?.apply {
+//            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
+//        }
+//
+//        binding?.apply {
+//            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
+//        }
 
         binding?.apply {
             ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
@@ -100,5 +102,31 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+}
+
+data class Task(val text: String)
+
+class TaskAdapter (
+    private val tasks: MutableList<Task>
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        return TaskViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.fragment_home_task_card,
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getItemCount(): Int {
+        return tasks.size
     }
 }

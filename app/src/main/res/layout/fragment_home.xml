@@ -6,240 +6,199 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:text="Good Morning, Emily"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="8dp" />
-
-    <LinearLayout
-        android:id="@+id/task_list"
-        android:layout_width="match_parent"
-        android:layout_height="360dp"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_home"
-        tools:layout_editor_absoluteX="1dp">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your tasks for today:"
-            android:textSize="25sp"/>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/grey_400" />
-        </FrameLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvTask1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:contentPadding="12dp"
-            app:cardBackgroundColor="@color/teal_700"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
-            <Button
-                android:id="@+id/btTask1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Hydrate"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:gravity="left|center_vertical"
-                android:drawableLeft="@drawable/ic_water_empty_48dp"/>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvTask2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:contentPadding="12dp"
-            app:cardBackgroundColor="@color/red_10"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
-            <Button
-                android:id="@+id/btTask2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Exercise"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:gravity="left|center_vertical"
-                android:drawableLeft="@drawable/ic_exercise_48dp"/>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvTask3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:contentPadding="12dp"
-            app:cardBackgroundColor="@color/grey_600"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
-            <Button
-                android:id="@+id/btTask3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Rest Early"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:gravity="left|center_vertical"
-                android:drawableLeft="@drawable/ic_bed_empty_48dp"/>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:orientation="vertical"
-        android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/task_list"
-        tools:layout_editor_absoluteX="1dp">
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/text_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Companion Status:"
-            android:textSize="25sp"/>
+            android:layout_marginTop="12dp"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:text="Good Morning, Emily"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="8dp" />
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/task_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-            <View
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            app:layout_constraintTop_toBottomOf="@+id/text_home"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+
+            tools:layout_editor_absoluteX="1dp">
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/grey_400" />
-        </FrameLayout>
+                android:layout_height="wrap_content"
+                android:text="Your tasks for today:"
+                android:textSize="25sp"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvCompanion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:contentPadding="12dp"
-            app:cardBackgroundColor="@color/orange_300"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/home_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/grey_400" />
+            </FrameLayout>
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <ImageButton
-                    android:id="@+id/ibCatIcon"
-                    android:layout_width="100dp"
-                    android:layout_height="87dp"
-                    android:src="@drawable/cat"
-                    android:scaleType="fitCenter"
-                    android:background="@null"/>
+                app:layout_constraintTop_toTopOf="@+id/home_divider">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHomeCards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/task_list"
+            tools:layout_editor_absoluteX="1dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Companion Status"
+                android:textSize="25sp"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/grey_400" />
+            </FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvCompanion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:contentPadding="12dp"
+                app:cardBackgroundColor="@color/orange_300"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp">
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/ibCatIcon"
+                        android:layout_width="100dp"
+                        android:layout_height="87dp"
+                        android:src="@drawable/cat"
+                        android:scaleType="fitCenter"
+                        android:background="@null"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Battery:"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"/>
-                        <TextView
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Battery:"
+                                android:textSize="20sp"
+                                android:textColor="@color/white"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wellbeing:"
+                                android:textSize="20sp"
+                                android:textColor="@color/white"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Points:"
+                                android:textSize="20sp"
+                                android:textColor="@color/white"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wellbeing:"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"/>
-                        <TextView
+                            android:layout_marginLeft="32dp"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/batteryPercentText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="50%"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"/>
+                            <TextView
+                                android:id="@+id/moodText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="Happy"
+                                android:textSize="20sp"
+                                android:textColor="@color/green_600"/>
+                            <TextView
+                                android:id="@+id/pointsText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:text="0"
+                                android:textSize="20sp"
+                                android:textColor="@color/teal_200"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Points:"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="32dp"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/batteryPercentText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:text="50%"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"/>
-                        <TextView
-                            android:id="@+id/moodText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:text="Happy"
-                            android:textSize="20sp"
-                            android:textColor="@color/green_600"/>
-                        <TextView
-                            android:id="@+id/pointsText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:text="0"
-                            android:textSize="20sp"
-                            android:textColor="@color/teal_200"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingLeft="5dp"
-                            android:rotation="90"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_battery_4_bar_24" />
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingTop="4dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_home_green_24dp" />
+                            android:layout_marginLeft="16dp"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="5dp"
+                                android:rotation="90"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_battery_4_bar_24" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingTop="4dp"
+                                android:layout_weight="1"
+                                android:src="@drawable/ic_home_green_24dp" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="7dp"
-                            android:layout_marginLeft="6dp"
-                            android:layout_weight="1"
-                            android:rotation="90"
-                            android:src="@drawable/ic_tracker_teal_24dp" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="7dp"
+                                android:layout_marginLeft="6dp"
+                                android:layout_weight="1"
+                                android:rotation="90"
+                                android:src="@drawable/ic_tracker_teal_24dp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
     </LinearLayout>
 
 

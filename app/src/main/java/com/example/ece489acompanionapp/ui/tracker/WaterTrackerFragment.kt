@@ -178,6 +178,13 @@ class WaterTrackerFragment : Fragment() {
             }
 
             binding?.apply {
+                waterTrackerNotificationButton.setOnClickListener {
+                    val action = WaterTrackerFragmentDirections.actionTrackerWaterToNotifications(trackerPage = "water")
+                    findNavController().navigate(action)
+                }
+            }
+
+            binding?.apply {
                 waterTrackerShareButton.setOnClickListener {
                     val watermilliLiters = countFilledCups()
                     val tweetText = "I drank $watermilliLiters milliliters of water today! #WellnessCompanion #StayHydrated 🥤️"

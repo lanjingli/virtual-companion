@@ -118,4 +118,6 @@
     <string name="weight_kg">Weight (kg)</string>
     <string name="personal_information">Personal Information</string>
     <string name="confirm">Confirm</string>
+    <string name="message">Message</string>
+    <string name="title">Title</string>
 </resources>

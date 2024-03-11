@@ -108,6 +108,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/notifications"
+        android:name="com.example.ece489acompanionapp.ui.notifications.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" >
+        <argument
+            android:name="trackerPage"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/personal_info"
         android:name="com.example.ece489acompanionapp.ui.information.PersonalInfoFragment"
         android:label="@string/personal_information"
@@ -125,6 +135,9 @@
         <action
             android:id="@+id/action_tracker_water_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
+        <action
+            android:id="@+id/action_tracker_water_to_notifications"
+            app:destination="@id/notifications" />
     </fragment>
 
     <fragment
@@ -135,6 +148,9 @@
         <action
             android:id="@+id/action_tracker_sleep_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
+        <action
+            android:id="@+id/action_tracker_sleep_to_notifications"
+            app:destination="@id/notifications" />
     </fragment>
 
     <fragment
@@ -145,6 +161,9 @@
         <action
             android:id="@+id/action_tracker_meditation_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
+        <action
+            android:id="@+id/action_tracker_meditation_to_notifications"
+            app:destination="@id/notifications" />
     </fragment>
 
     <fragment
@@ -155,6 +174,9 @@
         <action
             android:id="@+id/action_tracker_exercise_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
+        <action
+            android:id="@+id/action_tracker_exercise_to_notifications"
+            app:destination="@id/notifications" />
     </fragment>
 
     <fragment
@@ -165,6 +187,9 @@
         <action
             android:id="@+id/action_tracker_food_to_navigation_tracker"
             app:destination="@id/navigation_tracker" />
+        <action
+            android:id="@+id/action_tracker_food_to_notifications"
+            app:destination="@id/notifications" />
     </fragment>
 
     <fragment

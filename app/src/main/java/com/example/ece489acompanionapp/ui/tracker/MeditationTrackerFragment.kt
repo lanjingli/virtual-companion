@@ -182,6 +182,13 @@ class MeditationTrackerFragment : Fragment() {
             }
 
             binding?.apply {
+                meditationTrackerNotificationButton.setOnClickListener {
+                    val action = MeditationTrackerFragmentDirections.actionTrackerMeditationToNotifications(trackerPage = "meditation")
+                    findNavController().navigate(action)
+                }
+            }
+
+            binding?.apply {
                 meditationTrackerShareButton.setOnClickListener {
                     val meditationMins = countFilledMeditation()
                     val tweetText = "I've meditated for $meditationMins minutes today! #WellnessCompanion #selfcare ☯️️"

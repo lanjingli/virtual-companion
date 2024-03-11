@@ -181,6 +181,13 @@ class ExerciseTrackerFragment : Fragment() {
             }
 
             binding?.apply {
+                exerciseTrackerNotificationButton.setOnClickListener {
+                    val action = ExerciseTrackerFragmentDirections.actionTrackerExerciseToNotifications(trackerPage = "exercise")
+                    findNavController().navigate(action)
+                }
+            }
+
+            binding?.apply {
                 exerciseTrackerShareButton.setOnClickListener {
                     val exerciseMinutes = countFilledDumbells()
                     val tweetText = "I completed $exerciseMinutes minutes of exercise today! #WellnessCompanion #StayingFit 🏋️‍♂️"

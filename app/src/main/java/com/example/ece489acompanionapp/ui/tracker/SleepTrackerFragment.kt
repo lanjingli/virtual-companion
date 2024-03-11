@@ -180,6 +180,13 @@ class SleepTrackerFragment : Fragment() {
         }
 
         binding?.apply {
+            sleepTrackerNotificationButton.setOnClickListener {
+                val action = SleepTrackerFragmentDirections.actionTrackerSleepToNotifications(trackerPage = "sleep")
+                findNavController().navigate(action)
+            }
+        }
+
+        binding?.apply {
             sleepTrackerShareButton.setOnClickListener {
                 val exerciseHours = countFilledBeds()
                 val tweetText = "I slept $exerciseHours hours last night! #WellnessCompanion #Recovering 🛌"

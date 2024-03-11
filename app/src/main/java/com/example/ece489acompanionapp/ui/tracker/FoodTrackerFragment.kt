@@ -180,6 +180,13 @@ class FoodTrackerFragment : Fragment() {
             }
 
             binding?.apply {
+                foodTrackerNotificationButton.setOnClickListener {
+                    val action = FoodTrackerFragmentDirections.actionTrackerFoodToNotifications(trackerPage = "food")
+                    findNavController().navigate(action)
+                }
+            }
+
+            binding?.apply {
                 foodTrackerShareButton.setOnClickListener {
                     val foodCalories = countFilledBurgers()
                     val tweetText = "I've eaten $foodCalories calories today! #WellnessCompanion #EatingWell 🍗"

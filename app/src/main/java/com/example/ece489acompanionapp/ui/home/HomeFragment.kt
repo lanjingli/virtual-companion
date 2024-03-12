@@ -1,5 +1,6 @@
 package com.example.ece489acompanionapp.ui.home
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ece489acompanionapp.R
+import com.example.ece489acompanionapp.databinding.CalendarEventItemViewBinding
 import com.example.ece489acompanionapp.databinding.FragmentHomeBinding
 import com.example.ece489acompanionapp.ui.information.PersonalInfoViewModel
 import com.example.ece489acompanionapp.ui.tracker.TrackerViewModel
+import com.example.ece489acompanionapp.databinding.FragmentHomeTaskCardBinding
+import com.example.ece489acompanionapp.ui.calendar.CalendarEventsAdapter
+import com.example.ece489acompanionapp.ui.calendar.CalendarViewModel
+import com.example.ece489acompanionapp.ui.calendar.Event
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -25,6 +36,10 @@ class HomeFragment : Fragment() {
 
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by activityViewModels()
+    private val calendarViewModel: CalendarViewModel by activityViewModels()
+
+//    private val taskAdapter = TaskAdapter()
+    private lateinit var taskAdapter: TaskAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -38,10 +53,15 @@ class HomeFragment : Fragment() {
     ): View {
         val homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val context = requireContext()
         val textView: TextView = binding.textHome
         val currentHour = LocalDateTime.now().hour
         var greetingsIndex : Int
@@ -64,6 +84,9 @@ class HomeFragment : Fragment() {
 
         //TODO: customize battery level text
 
+        val moods = mapOf("Angry" to ContextCompat.getColor(context, R.color.red_10),
+            "Ick" to ContextCompat.getColor(context, R.color.orange_300),
+            "Happy" to ContextCompat.getColor(context, R.color.green_400))
         val numRecMet = trackerViewModel.getNumRecomMet()!!
         var mood = if (numRecMet <= 1) {
             "Angry"
@@ -72,30 +95,35 @@ class HomeFragment : Fragment() {
         } else {
             "Happy"
         }
+        binding.moodText.setTextColor(moods.get(mood)!!)
+        val coloredDrawable =
+            ContextCompat.getDrawable(context, R.drawable.ic_home_green_24dp)
+                ?.let { setDrawableColor(it, moods.get(mood)!!) }
+        binding.moodIcon.setImageDrawable(coloredDrawable)
 
         binding.moodText.text = mood
         binding.pointsText.text = trackerViewModel.getTotalPoints().toString()
+        binding.ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
 
-        return root
+        taskAdapter = TaskAdapter()
+        binding.rvHomeCards.adapter = taskAdapter
+        binding.rvHomeCards.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
+        val events: MutableMap<LocalDate, List<Event>> = calendarViewModel.getEvents() ?: mutableMapOf<LocalDate, List<Event>>()
 //        binding?.apply {
-//            btTask1.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
+//            taskAdapter.apply {
+//                tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
+//            }
+//            rvHomeCards.adapter = taskAdapter
 //        }
-//
-//        binding?.apply {
-//            btTask2.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
-//        }
-//
-//        binding?.apply {
-//            btTask3.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
-//        }
-
-        binding?.apply {
-            ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
+//        taskAdapter.tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
+        taskAdapter.apply {
+            tasks.clear()
+            tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
+            notifyDataSetChanged()
         }
     }
 
@@ -105,25 +133,89 @@ class HomeFragment : Fragment() {
     }
 }
 
+fun setDrawableColor(drawable: Drawable, color: Int): Drawable {
+    val wrappedDrawable = DrawableCompat.wrap(drawable)
+    DrawableCompat.setTint(wrappedDrawable, color)
+    return wrappedDrawable
+}
+
 data class Task(val text: String)
 
-class TaskAdapter (
-    private val tasks: MutableList<Task>
-) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-    class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+class TaskAdapter () : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    val tasks = mutableListOf<Task>()
+    class TaskViewHolder(private val binding: FragmentHomeTaskCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(task: Task) {
+            // Getting the color and string resources here is very annoying
+            // Feel free to improve it if you know how to
+            if (task.text.length >= 11 && task.text.substring(0,10) == "./tracker:") {
+                when(task.text.substring(10)) {
+                    "w" -> {
+                        binding.btTask.apply {
+                            text = "stay hydrated"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFF018786.toInt()) //teal_700
+                    }
+                    "s" -> {
+                        binding.btTask.apply {
+                            text = "rest on time"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFF3700B3.toInt()) //purple_700
+                    }
+                    "m" -> {
+                        binding.btTask.apply {
+                            text = "meditate"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_meditation) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFF2E6930.toInt()) //green_600
+                    }
+                    "e" -> {
+                        binding.btTask.apply {
+                            text = "exercise"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFFB90E0A.toInt()) //red_10
+                    }
+                    "f" -> {
+                        binding.btTask.apply {
+                            text = "eat healthy"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_food) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFFFFB347.toInt()) //orange_300
+                    }
+                    "r" -> {
+                        binding.btTask.apply {
+                            text = "rehabilitate"
+                            setTextColor(0xFFFFFFFF.toInt())
+                            setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_substance_abuse) }
+                        }
+                        binding.cvTask.setBackgroundColor(0xFF000000.toInt()) //black
+                    }
+                }
+            } else {
+                binding.btTask.apply {
+                    text = task.text
+                    setTextColor(0xFF000000.toInt())
+                }
+                binding.cvTask.setBackgroundColor(0xFFBDBDBD.toInt()) //grey_400
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.fragment_home_task_card,
-                parent,
-                false
-            )
+            FragmentHomeTaskCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(tasks[position])
     }
 
     override fun getItemCount(): Int {

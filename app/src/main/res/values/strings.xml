@@ -33,6 +33,7 @@
     <string name="title_weekly_food_tracker">Your Weekly Food Intake</string>
     <string name="companion_face_decorator">Companion Face Decorator</string>
     <string name="companion_head_decorator">Companion Head Decorator</string>
+    <string name="tracker_disclaimer">It\'s important to note that individual needs may differ and these are just general recommendations. Consulting with a healthcare professional can provide personalized recommendations based on your specific health circumstances.</string>
     <string name="current_user_name">Emily</string><!--will change this later-->
     <string-array name="gender_array">
         <item>Male</item>
@@ -118,4 +119,6 @@
     <string name="weight_kg">Weight (kg)</string>
     <string name="personal_information">Personal Information</string>
     <string name="confirm">Confirm</string>
+    <string name="message">Message</string>
+    <string name="title">Title</string>
 </resources>

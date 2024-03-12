@@ -303,6 +303,16 @@
             app:layout_constraintTop_toBottomOf="@+id/table2" />
 
         <Button
+            android:id="@+id/food_tracker_notification_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="137dp"
+            android:text="Set Reminder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Button
             android:id="@+id/food_tracker_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -83,4 +83,12 @@
         android:text="@string/tracker_substance_abuse"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_tracker_button" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/tracker_disclaimer"
+        app:layout_constraintTop_toBottomOf="@+id/substance_abuse_tracker_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

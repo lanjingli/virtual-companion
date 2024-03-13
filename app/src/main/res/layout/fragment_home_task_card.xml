@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
     app:contentPadding="12dp"
-    app:cardBackgroundColor="@color/teal_700"
+    app:cardBackgroundColor="@color/grey_400"
     app:cardCornerRadius="18dp"
     app:cardElevation="0dp">
     <Button

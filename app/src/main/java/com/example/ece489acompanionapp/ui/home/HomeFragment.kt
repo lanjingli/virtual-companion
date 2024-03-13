@@ -1,5 +1,6 @@
 package com.example.ece489acompanionapp.ui.home
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -105,7 +106,7 @@ class HomeFragment : Fragment() {
         binding.pointsText.text = trackerViewModel.getTotalPoints().toString()
         binding.ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
 
-        taskAdapter = TaskAdapter()
+        taskAdapter = TaskAdapter(requireContext())
         binding.rvHomeCards.adapter = taskAdapter
         binding.rvHomeCards.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
     }
@@ -141,69 +142,93 @@ fun setDrawableColor(drawable: Drawable, color: Int): Drawable {
 
 data class Task(val text: String)
 
-class TaskAdapter () : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter (
+    val context: Context
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     val tasks = mutableListOf<Task>()
-    class TaskViewHolder(private val binding: FragmentHomeTaskCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TaskViewHolder(private val binding: FragmentHomeTaskCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             // Getting the color and string resources here is very annoying
             // Feel free to improve it if you know how to
             if (task.text.length >= 11 && task.text.substring(0,10) == "./tracker:") {
                 when(task.text.substring(10)) {
                     "w" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_water_empty_48dp)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "stay hydrated"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_water) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFF018786.toInt()) //teal_700
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.teal_700)) //teal_700
                     }
                     "s" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_bed_empty_48dp)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "rest on time"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_sleep) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFF3700B3.toInt()) //purple_700
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.purple_700)) //purple_700
                     }
                     "m" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_meditation_empty_48dp)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "meditate"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_meditation) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFF2E6930.toInt()) //green_600
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.green_600)) //green_600
                     }
                     "e" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_exercise_48dp)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "exercise"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_exercise) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFFB90E0A.toInt()) //red_10
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red_10)) //red_10
                     }
                     "f" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_burger_empty_48dp)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "eat healthy"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_food) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFFFFB347.toInt()) //orange_300
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.orange_300)) //orange_300
                     }
                     "r" -> {
+                        val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_block_24)
+                            ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                         binding.btTask.apply {
                             text = "rehabilitate"
-                            setTextColor(0xFFFFFFFF.toInt())
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
                             setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_tracker_substance_abuse) }
                         }
-                        binding.cvTask.setBackgroundColor(0xFF000000.toInt()) //black
+                        binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.black)) //black
                     }
                 }
             } else {
+                val coloredDrawable = ContextCompat.getDrawable(context, R.drawable.ic_calendar_black_24dp)
+                    ?.let { setDrawableColor(it, ContextCompat.getColor(context, R.color.white)) }
                 binding.btTask.apply {
                     text = task.text
-                    setTextColor(0xFF000000.toInt())
+                    setTextColor(ContextCompat.getColor(context, R.color.white))
+                    setCompoundDrawablesWithIntrinsicBounds(coloredDrawable, null, null, null);
+                    setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_calendar) }
                 }
-                binding.cvTask.setBackgroundColor(0xFFBDBDBD.toInt()) //grey_400
+                binding.cvTask.setCardBackgroundColor(ContextCompat.getColor(context, R.color.grey_600)) //grey_600
             }
         }
     }

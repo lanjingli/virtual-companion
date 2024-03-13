@@ -28,6 +28,7 @@ import com.example.ece489acompanionapp.databinding.FragmentHomeTaskCardBinding
 import com.example.ece489acompanionapp.ui.calendar.CalendarEventsAdapter
 import com.example.ece489acompanionapp.ui.calendar.CalendarViewModel
 import com.example.ece489acompanionapp.ui.calendar.Event
+import com.example.ece489acompanionapp.ui.settings.SettingsViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
     private val infoViewModel: PersonalInfoViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by activityViewModels()
     private val calendarViewModel: CalendarViewModel by activityViewModels()
+    private val settingsViewModel: SettingsViewModel by activityViewModels()
 
 //    private val taskAdapter = TaskAdapter()
     private lateinit var taskAdapter: TaskAdapter
@@ -107,6 +109,7 @@ class HomeFragment : Fragment() {
         binding.ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
 
         taskAdapter = TaskAdapter(requireContext())
+        taskAdapter.tasks.addAll(getTrackerTasks())
         binding.rvHomeCards.adapter = taskAdapter
         binding.rvHomeCards.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
     }
@@ -123,6 +126,7 @@ class HomeFragment : Fragment() {
 //        taskAdapter.tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
         taskAdapter.apply {
             tasks.clear()
+            tasks.addAll(getTrackerTasks())
             tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
             notifyDataSetChanged()
         }
@@ -131,6 +135,30 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getTrackerTasks() : List<Task>{
+        val trackerTaskIndicator : String = "./tracker:"
+        var tasks = mutableListOf<Task>()
+        if (settingsViewModel.getWaterTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 'w'))
+        }
+        if (settingsViewModel.getSleepTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 's'))
+        }
+        if (settingsViewModel.getMeditationTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 'm'))
+        }
+        if (settingsViewModel.getExerciseTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 'e'))
+        }
+        if (settingsViewModel.getFoodTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 'f'))
+        }
+        if (settingsViewModel.getSubstanceAbuseTrackerEnabled() == true) {
+            tasks.add(Task(trackerTaskIndicator + 'r'))
+        }
+        return tasks
     }
 }
 
@@ -148,8 +176,6 @@ class TaskAdapter (
     val tasks = mutableListOf<Task>()
     inner class TaskViewHolder(private val binding: FragmentHomeTaskCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
-            // Getting the color and string resources here is very annoying
-            // Feel free to improve it if you know how to
             if (task.text.length >= 11 && task.text.substring(0,10) == "./tracker:") {
                 when(task.text.substring(10)) {
                     "w" -> {

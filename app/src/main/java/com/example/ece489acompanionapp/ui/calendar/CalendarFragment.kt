@@ -158,6 +158,15 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         } else {
             selectedDate?.let {
                 var events = sharedViewModel.getEvents()
+                var dupe = false
+                events?.get(it)?.forEach { event ->
+                    if (event.text.equals(text)) dupe = true
+                }
+                if (dupe) {
+                    Toast.makeText(requireContext(), R.string.calendar_task_input_duplicate, Toast.LENGTH_LONG)
+                        .show()
+                    return
+                }
                 events?.set(it,
                     events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it))
                 )

@@ -139,7 +139,7 @@ class SettingsFragment : Fragment() {
         binding.meditationCheckbox.isChecked = true
         binding.exerciseCheckbox.isChecked = true
         binding.foodCheckbox.isChecked = true
-        binding.substanceAbuseCheckbox.isChecked = true
+        binding.substanceAbuseCheckbox.isChecked = false
     }
 
     private fun initTrackerSpinners() {

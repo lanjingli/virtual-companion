@@ -193,7 +193,8 @@
                     android:id="@+id/substance_abuse_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Substance Abuse Rehabilitation" />
+                    android:text="Substance Abuse Rehabilitation"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout

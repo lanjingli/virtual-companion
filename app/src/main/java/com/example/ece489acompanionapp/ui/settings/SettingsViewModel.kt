@@ -25,7 +25,7 @@ class SettingsViewModel : ViewModel() {
     private val _foodTrackerEnabled = MutableLiveData<Boolean>(true)
     val foodTrackerEnabled: LiveData<Boolean> = _foodTrackerEnabled
 
-    private val _substanceAbuseTrackerEnabled = MutableLiveData<Boolean>(true)
+    private val _substanceAbuseTrackerEnabled = MutableLiveData<Boolean>(false)
     val substanceAbuseTrackerEnabled: LiveData<Boolean> = _substanceAbuseTrackerEnabled
 
     private val _customWaterSelected = MutableLiveData<String>("Default")

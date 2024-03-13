@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
         binding.moodIcon.setImageDrawable(coloredDrawable)
 
         binding.moodText.text = mood
-        binding.pointsText.text = trackerViewModel.getTotalPoints().toString()
+        binding.pointsText.text = (trackerViewModel.getTotalPoints()!! + calendarViewModel.getPoints()!!).toString()
         binding.ibCatIcon.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_companion) }
 
         taskAdapter = TaskAdapter(requireContext())
@@ -117,17 +117,10 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val events: MutableMap<LocalDate, List<Event>> = calendarViewModel.getEvents() ?: mutableMapOf<LocalDate, List<Event>>()
-//        binding?.apply {
-//            taskAdapter.apply {
-//                tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
-//            }
-//            rvHomeCards.adapter = taskAdapter
-//        }
-//        taskAdapter.tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
         taskAdapter.apply {
             tasks.clear()
-            tasks.addAll(getTrackerTasks())
             tasks.addAll(events[LocalDate.now()].orEmpty().map { Task(it.text) })
+            tasks.addAll(getTrackerTasks())
             notifyDataSetChanged()
         }
     }

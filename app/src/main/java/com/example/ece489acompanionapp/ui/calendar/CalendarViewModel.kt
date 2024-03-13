@@ -19,4 +19,14 @@ class CalendarViewModel : ViewModel() {
         return _events.value
     }
 
+    private val _points = MutableLiveData<Int>(0)
+
+    fun addPoints(pointsToAdd: Int) {
+        _points.value = _points.value?.plus(pointsToAdd)
+    }
+
+    fun getPoints(): Int? {
+        return _points.value
+    }
+
 }

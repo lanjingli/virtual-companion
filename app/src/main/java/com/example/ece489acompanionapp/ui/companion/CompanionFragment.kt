@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ece489acompanionapp.R
 import com.example.ece489acompanionapp.databinding.FragmentCompanionBinding
 import com.example.ece489acompanionapp.ui.tracker.TrackerViewModel
+import com.example.ece489acompanionapp.ui.calendar.CalendarViewModel
 import khttp.post
 
 
@@ -24,6 +25,7 @@ class CompanionFragment : Fragment(0) {
     private var _binding: FragmentCompanionBinding? = null
     private val sharedViewModel: CompanionViewModel by activityViewModels()
     private val trackerViewModel: TrackerViewModel by activityViewModels()
+    private val calendarViewModel: CalendarViewModel by activityViewModels()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -93,7 +95,7 @@ class CompanionFragment : Fragment(0) {
         companionImageView.setImageResource(decoToImage[key]!!)
 
         // TODO: get user points from database
-        var userPoint = trackerViewModel.getTotalPoints()!!
+        var userPoint = trackerViewModel.getTotalPoints()!! + calendarViewModel.getPoints()!!
 
         val tmpMap = pointToDeco.filterKeys { it > userPoint }
         val keyList = tmpMap.keys.toList()

@@ -49,11 +49,12 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
     private val sharedViewModel: CalendarViewModel by activityViewModels()
 
-    private val eventsAdapter = CalendarEventsAdapter {
+    private val eventsAdapter = CalendarEventsAdapter {it, type ->
         AlertDialog.Builder(requireContext())
-            .setMessage(R.string.delete_confirm)
-            .setPositiveButton(R.string.delete) { _, _ ->
-                deleteEvent(it)
+            .setMessage(if(type) R.string.check_confirm else R.string.delete_confirm)
+            .setPositiveButton(if(type) R.string.check else R.string.delete) { _, _ ->
+                if(type) checkEvent(it)
+                else deleteEvent(it)
             }
             .setNegativeButton(R.string.close, null)
             .show()
@@ -103,6 +104,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val titleRes: Int = R.string.title_calendar
+    private val maxPoints = 50
 
     private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
@@ -141,11 +143,17 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             binding.exThreeCalendar.post { selectDate(today) }
         }
         binding.abCalendarAddButton.setOnClickListener { inputDialog.show() }
+
+        val currentPoints = sharedViewModel.getPoints()!!
+        binding.tvPointsDisplay.text = "$currentPoints/50"
     }
 
     private fun saveEvent(text: String) {
         if (text.isBlank()) {
             Toast.makeText(requireContext(), R.string.calendar_task_input_empty, Toast.LENGTH_LONG)
+                .show()
+        } else if (text.length > 10 && text.substring(0,10) == "./tracker:") {
+            Toast.makeText(requireContext(), R.string.calendar_task_input_illegal, Toast.LENGTH_LONG)
                 .show()
         } else {
             selectedDate?.let {
@@ -159,6 +167,28 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
                 }
             }
         }
+    }
+
+    private fun checkEvent(event: Event) {
+        deleteEvent(event)
+        var currentPoints = sharedViewModel.getPoints()!!
+        var message: String = "Congratulations on completing a task!"
+        if ((currentPoints + 10) <= maxPoints) {
+            sharedViewModel.addPoints(10)
+            currentPoints += 10
+            message = "$message\n+10 Points.\nCurrent points: $currentPoints"
+        } else {
+            message =
+                "$message\n+0 Points, today's points for custom tasks have already been awarded.\nCurrent points: $currentPoints"
+        }
+        val alertDialogBuilder = android.app.AlertDialog.Builder(requireContext())
+        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
+        binding.tvPointsDisplay.text = "$currentPoints/50"
     }
 
     private fun deleteEvent(event: Event) {
@@ -273,7 +303,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
 data class Event(val id: String, val text: String, val date: LocalDate)
 
-class CalendarEventsAdapter(val onClick: (Event) -> Unit) :
+class CalendarEventsAdapter(val onClick: (Event, Boolean) -> Unit) :
     RecyclerView.Adapter<CalendarEventsAdapter.CalendarViewHolder>() {
     val events = mutableListOf<Event>()
 
@@ -291,8 +321,11 @@ class CalendarEventsAdapter(val onClick: (Event) -> Unit) :
     inner class CalendarViewHolder(private val binding: CalendarEventItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
+            binding.btCheckEvent.setOnClickListener {
+                onClick(events[bindingAdapterPosition], true)
+            }
             binding.btDeleteEvent.setOnClickListener {
-                onClick(events[bindingAdapterPosition])
+                onClick(events[bindingAdapterPosition], false)
             }
         }
 
